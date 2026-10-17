@@ -90,8 +90,8 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 lg:py-28 bg-white relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-20 lg:py-28 2xl:py-36 bg-white relative">
+      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
@@ -103,8 +103,8 @@ export default function Contact() {
             1:1 무료 맞춤 견적 및{' '}
             <span className="text-blue-700 inline-block">작업 요청</span>
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 break-keep">
-            원하시는 공간과 일정에 맞춰 최적의 플랜과 정밀 견적을 신속하게 안내해 드립니다.
+          <p className="text-sm sm:text-base text-slate-600 max-w-lg mx-auto break-keep text-center leading-relaxed">
+            {siteConfig.contact.formSubtitle}
           </p>
         </div>
 
@@ -224,13 +224,15 @@ export default function Contact() {
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                   공간 면적 / 평수
                 </label>
-                <div className="flex flex-wrap gap-2">
-                  {SPACE_SIZES.map((size) => (
+                <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+                  {SPACE_SIZES.map((size, idx) => (
                     <button
                       type="button"
                       key={size}
                       onClick={() => setFormData({ ...formData, spaceSize: size })}
-                      className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                      className={`px-3 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer text-center ${
+                        idx === 4 ? 'col-span-2 sm:col-span-1' : ''
+                      } ${
                         formData.spaceSize === size
                           ? 'bg-blue-600 text-white shadow-sm'
                           : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'

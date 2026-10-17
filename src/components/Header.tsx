@@ -27,10 +27,20 @@ export default function Header() {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+
+    // Give time for mobile drawer to begin collapse, then smooth scroll with header offset
+    setTimeout(() => {
+      const element = document.querySelector(href);
+      if (element) {
+        const headerOffset = 75;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
+    }, 180);
   };
 
   return (
@@ -41,7 +51,7 @@ export default function Header() {
           : 'bg-white/80 backdrop-blur-sm py-4 border-b border-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a
@@ -143,10 +153,10 @@ export default function Header() {
                   {link.name}
                 </a>
               ))}
-              <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
+              <div className="pt-3 border-t border-slate-100 flex flex-col gap-3">
                 <a
                   href={siteConfig.contact.phoneTel}
-                  className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold text-sm hover:bg-slate-50 transition-colors"
+                  className="flex items-center justify-center gap-2.5 w-full py-3.5 rounded-2xl border border-slate-200 text-slate-800 font-extrabold text-sm hover:bg-slate-50 active:scale-98 transition-all"
                 >
                   <Phone className="w-4 h-4 text-blue-600" />
                   전화 상담 {siteConfig.contact.phone}
@@ -154,7 +164,7 @@ export default function Header() {
                 <a
                   href="#contact"
                   onClick={(e) => handleNavClick(e, '#contact')}
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-blue-600 text-white font-bold text-sm shadow-md shadow-blue-500/20 active:scale-98 transition-all"
+                  className="flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl bg-blue-700 hover:bg-blue-800 text-white font-extrabold text-sm shadow-md shadow-blue-600/25 active:scale-98 transition-all"
                 >
                   빠른 무료 견적 신청하기
                   <ArrowRight className="w-4 h-4" />

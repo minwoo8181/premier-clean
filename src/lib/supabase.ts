@@ -1,9 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
 import { ReviewItem } from '@/types';
 import { INITIAL_REVIEWS } from './mockData';
+import { siteConfig } from '@/config/site';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const supabaseUrl = siteConfig.integrations.supabase.url || process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = siteConfig.integrations.supabase.anonKey || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
 export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
 
@@ -124,6 +125,6 @@ export async function createReview(newReview: Omit<ReviewItem, 'id' | 'date'>): 
 }
 
 export function verifyAdminPassword(password: string): boolean {
-  const validPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || '0000';
+  const validPassword = siteConfig.integrations.adminPassword || process.env.NEXT_PUBLIC_ADMIN_PASSWORD || '0000';
   return password.trim() === validPassword.trim();
 }

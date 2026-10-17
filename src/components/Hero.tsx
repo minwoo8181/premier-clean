@@ -29,11 +29,11 @@ export default function Hero() {
         <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-100/70 rounded-full blur-3xl pointer-events-none" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8 md:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <div className="relative z-10 max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 w-full py-10 md:py-20 2xl:py-28">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           {/* Main Content (Left 7-8 Cols) */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 space-y-7">
             
             {/* Tag Badge */}
             <motion.div
@@ -43,31 +43,31 @@ export default function Hero() {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs sm:text-sm font-bold shadow-sm"
             >
               <Sparkles className="w-4 h-4 text-blue-600 animate-pulse" />
-              <span className="tracking-tight">대한민국 1% 프리미엄 청소 마스터 솔루션</span>
+              <span className="tracking-tight">홈클리닝 & 상업공간 100% 직영 마스터 솔루션</span>
             </motion.div>
 
-            {/* Main Headlines with Natural Korean Linebreaks (break-keep) */}
+            {/* Main Headlines with Toss/Apple Style Clarity */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="space-y-4"
             >
-              <h1 className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black text-slate-900 tracking-tight leading-[1.2] sm:leading-[1.18] break-keep">
-                눈에 보이지 않는 곳까지 완벽하게, <br className="hidden sm:inline" />
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-black text-slate-900 tracking-tight leading-[1.2] sm:leading-[1.15] break-keep">
+                주거부터 비즈니스까지, <br className="hidden sm:inline" />
                 <span className="text-blue-700 underline decoration-blue-200 decoration-wavy decoration-2 underline-offset-8">
                   {siteConfig.brand.name}
                 </span>
                 이 기준을 만듭니다.
               </h1>
 
-              <p className="text-lg sm:text-2xl font-extrabold text-slate-800 break-keep leading-snug">
+              <p className="text-lg sm:text-2xl 2xl:text-3xl font-extrabold text-slate-800 break-keep leading-snug">
                 &ldquo;{siteConfig.brand.subSlogan}&rdquo;
               </p>
               
-              <p className="text-sm sm:text-base text-slate-600 max-w-xl break-keep leading-relaxed font-medium">
-                외주나 하도급 없는 <strong className="text-blue-700 font-bold">100% 한국인 직영 마스터팀</strong>이
-                독일 명품 친환경 장비와 150℃ 고온 스팀으로 티끌 하나 남김없이 완벽하게 복원해 드립니다.
+              <p className="text-sm sm:text-base 2xl:text-lg text-slate-600 max-w-2xl break-keep leading-relaxed font-medium">
+                하도급 없는 <strong className="text-blue-700 font-bold">100% 한국인 직영팀</strong>이
+                프리미엄 주거 입주·이사부터 오피스·상가 정기관리까지 타협 없이 완벽 시공합니다.
               </p>
             </motion.div>
 

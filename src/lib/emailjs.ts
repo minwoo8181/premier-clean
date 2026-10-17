@@ -1,9 +1,10 @@
 import emailjs from '@emailjs/browser';
 import { InquiryFormData } from '@/types';
+import { siteConfig } from '@/config/site';
 
-const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '';
-const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '';
-const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '';
+const serviceId = siteConfig.integrations.emailjs.serviceId || process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '';
+const templateId = siteConfig.integrations.emailjs.templateId || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '';
+const publicKey = siteConfig.integrations.emailjs.publicKey || process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '';
 
 export const isEmailJSConfigured = Boolean(serviceId && templateId && publicKey);
 

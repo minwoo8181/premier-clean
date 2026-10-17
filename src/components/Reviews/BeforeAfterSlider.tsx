@@ -51,8 +51,8 @@ export default function BeforeAfterSlider() {
 
   return (
     <div className="space-y-6">
-      {/* Category selector chips */}
-      <div className="flex flex-wrap items-center justify-center gap-2">
+      {/* Category selector chips (2x2 grid on mobile, flex on desktop) */}
+      <div className="grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:justify-center">
         {BEFORE_AFTER_SHOWCASES.map((item, idx) => (
           <button
             key={item.category}
