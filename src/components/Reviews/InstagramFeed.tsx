@@ -2,6 +2,7 @@
 
 import { Heart, MessageCircle, BadgeCheck, ExternalLink } from 'lucide-react';
 import { INSTAGRAM_POSTS } from '@/lib/mockData';
+import { siteConfig } from '@/config/site';
 
 function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -40,12 +41,12 @@ export default function InstagramFeed() {
           <div>
             <div className="flex items-center gap-1.5">
               <h4 className="font-extrabold text-base sm:text-lg text-slate-900">
-                premierclean_official
+                {siteConfig.contact.instagramHandle}
               </h4>
               <BadgeCheck className="w-4 h-4 text-blue-600 fill-blue-600 text-white" />
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              프리미어 클린 공식 계정 · 생생한 시공 비포&애프터 현장 기록
+              {siteConfig.brand.name} 공식 계정 · 생생한 시공 비포&애프터 현장 기록
             </p>
             <div className="flex items-center gap-3 text-xs text-slate-600 mt-1 font-semibold">
               <span>게시물 <strong className="text-slate-900 font-bold">1,240</strong></span>
@@ -56,7 +57,7 @@ export default function InstagramFeed() {
         </div>
 
         <a
-          href="https://instagram.com"
+          href={siteConfig.contact.instagramUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 via-rose-500 to-amber-500 hover:opacity-90 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition-all cursor-pointer active:scale-95"

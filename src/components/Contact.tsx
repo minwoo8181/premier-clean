@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Send, Phone, Clock, ShieldAlert, CheckCircle2, Home, Building2, Sparkles } from 'lucide-react';
+import { Send, Phone, Clock, ShieldAlert, CheckCircle2, Home, Building2, Sparkles, AlertCircle } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { sendInquiryEmail } from '@/lib/emailjs';
 import { InquiryFormData } from '@/types';
+import { siteConfig } from '@/config/site';
 
 const SPACE_SIZES = [
   '원룸/투룸 (15평 이하)',
@@ -25,6 +26,7 @@ export default function Contact() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validationError, setValidationError] = useState('');
   const [submitResult, setSubmitResult] = useState<{
     success: boolean;
     message: string;
@@ -33,8 +35,16 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.phone.trim()) {
-      alert('성함과 연락처를 입력해 주세요.');
+    setValidationError('');
+
+    if (!formData.name.trim()) {
+      setValidationError('고객명(또는 업체명)을 입력해 주세요.');
+      return;
+    }
+
+    const cleanPhone = formData.phone.replace(/[^0-9]/g, '');
+    if (cleanPhone.length < 9 || cleanPhone.length > 11) {
+      setValidationError('올바른 연락처 번호(9~11자리 숫자)를 입력해 주세요. 예: 010-1234-5678');
       return;
     }
 
@@ -110,17 +120,17 @@ export default function Contact() {
                 </span>
                 <h3 className="text-2xl font-black">전화 직통 상담</h3>
                 <a
-                  href="tel:1800-0000"
+                  href={siteConfig.contact.phoneTel}
                   className="inline-block text-3xl sm:text-4xl font-extrabold text-white tracking-tight hover:text-sky-300 transition-colors"
                 >
-                  1800-0000
+                  {siteConfig.contact.phone}
                 </a>
               </div>
 
               <div className="space-y-3 pt-4 border-t border-white/15 text-xs text-slate-200">
                 <div className="flex items-center gap-2.5">
                   <Clock className="w-4 h-4 text-sky-400 flex-shrink-0" />
-                  <span>상담 시간: 매일 08:00 ~ 21:00 (연중무휴)</span>
+                  <span>상담 시간: {siteConfig.contact.operatingHours}</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <Phone className="w-4 h-4 text-sky-400 flex-shrink-0" />
@@ -128,7 +138,7 @@ export default function Contact() {
                 </div>
                 <div className="flex items-center gap-2.5">
                   <ShieldAlert className="w-4 h-4 text-sky-400 flex-shrink-0" />
-                  <span>시공 후 불만족 시 100% 무상 A/S 보장</span>
+                  <span>100% 무료 A/S 보장 (3일 이내 무상 재방문)</span>
                 </div>
               </div>
             </div>
@@ -289,6 +299,14 @@ export default function Contact() {
                   className="w-full text-sm px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white shadow-inner"
                 />
               </div>
+
+              {/* Validation Warning */}
+              {validationError && (
+                <div className="p-3.5 rounded-xl text-xs font-semibold flex items-center gap-2 bg-amber-50 text-amber-900 border border-amber-200">
+                  <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                  <span>{validationError}</span>
+                </div>
+              )}
 
               {/* Submit Notification Toast */}
               {submitResult && (

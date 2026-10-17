@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowUp, MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { siteConfig } from '@/config/site';
 
 export default function FloatingActions() {
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const kakaoUrl = process.env.NEXT_PUBLIC_KAKAO_CHAT_URL || 'https://open.kakao.com';
+  const kakaoUrl = siteConfig.contact.kakaoChatUrl;
 
   useEffect(() => {
     const handleScroll = () => {
