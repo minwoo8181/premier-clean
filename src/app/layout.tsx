@@ -1,26 +1,52 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: '프리미어 클린 (Premier Clean) | 100% 직영 프리미엄 청소 전문',
-  description:
-    '눈에 보이지 않는 곳까지 완벽하게, 프리미어 클린이 기준을 만듭니다. 100% 한국인 직영팀, 고객만족도 99%, 친환경 최고급 케어, 100% A/S 보장 입주/이사/사무실 전문 클리닝.',
-  keywords: [
-    '프리미어클린',
-    '입주청소',
-    '이사청소',
-    '사무실청소',
-    '상가청소',
-    '친환경청소',
-    '피톤치드',
-    '청소전문업체',
-  ],
+  metadataBase: new URL(siteConfig.seo.siteUrl),
+  title: siteConfig.seo.title,
+  description: siteConfig.seo.description,
+  keywords: siteConfig.seo.keywords,
+  authors: [{ name: siteConfig.brand.name }],
+  creator: siteConfig.brand.name,
+  publisher: siteConfig.brand.name,
+  formatDetection: {
+    email: false,
+    address: true,
+    telephone: true,
+  },
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: '프리미어 클린 - 기준을 만드는 프리미엄 청소',
-    description: '청소는 아무나 하는게 아니다. 청소도 기술이다. 100% 한국인 직영팀의 명품 청소 서비스',
-    type: 'website',
+    title: siteConfig.seo.title,
+    description: siteConfig.seo.description,
+    url: siteConfig.seo.siteUrl,
+    siteName: siteConfig.brand.name,
     locale: 'ko_KR',
-    siteName: '프리미어 클린 (Premier Clean)',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.seo.title,
+    description: siteConfig.seo.description,
+  },
+  verification: {
+    google: siteConfig.seo.googleVerification || undefined,
+    other: siteConfig.seo.naverVerification
+      ? { 'naver-site-verification': siteConfig.seo.naverVerification }
+      : {},
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -29,6 +55,51 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // 구글 및 네이버 검색엔진이 공식 인식하는 JSON-LD 구조화 데이터 (Schema.org)
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'HomeAndConstructionBusiness',
+    name: siteConfig.brand.name,
+    alternateName: siteConfig.brand.englishName,
+    url: siteConfig.seo.siteUrl,
+    telephone: siteConfig.contact.phone,
+    email: siteConfig.contact.email,
+    priceRange: '₩₩',
+    description: siteConfig.brand.description,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: siteConfig.company.address,
+      addressLocality: 'Seoul',
+      addressCountry: 'KR',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: '37.5000',
+      longitude: '127.0365',
+    },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+      ],
+      opens: '08:00',
+      closes: '21:00',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.98',
+      bestRating: '5',
+      worstRating: '1',
+      reviewCount: '12840',
+    },
+  };
+
   return (
     <html lang="ko" className="scroll-smooth">
       <head>
@@ -36,6 +107,11 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        {/* Schema.org JSON-LD 구조화 데이터 스크립트 */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       </head>
       <body className="min-h-screen flex flex-col bg-white text-slate-900 antialiased selection:bg-blue-600 selection:text-white">
         {children}
