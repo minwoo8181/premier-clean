@@ -79,15 +79,21 @@ export default function InstagramFeed() {
       {/* 🖼️ CASE 1: 1개 메인 화보형 강조 뷰 (기본 추천 설정) */}
       {isSinglePost && singlePost && (
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-slate-50 rounded-2xl p-4 sm:p-6 border border-slate-200/80">
-          <div className="md:col-span-7 relative aspect-[16/10] sm:aspect-[16/9] rounded-xl overflow-hidden shadow-md group">
+          <a
+            href={singlePost.postUrl || siteConfig.contact.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="md:col-span-7 relative aspect-[16/10] sm:aspect-[16/9] rounded-xl overflow-hidden shadow-md group block cursor-pointer"
+          >
             <div
               className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
               style={{ backgroundImage: `url('${singlePost.image}')` }}
             />
-            <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[11px] font-bold px-2.5 py-1 rounded-lg">
-              최신 현장 하이라이트
+            <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[11px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5">
+              <span>최신 현장 하이라이트</span>
+              <ExternalLink className="w-3 h-3 text-slate-300" />
             </div>
-          </div>
+          </a>
 
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3 text-xs font-bold text-slate-600">
@@ -107,12 +113,12 @@ export default function InstagramFeed() {
 
             <div className="pt-2">
               <a
-                href={siteConfig.contact.instagramUrl}
+                href={singlePost.postUrl || siteConfig.contact.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 hover:text-blue-800 transition-colors"
               >
-                <span>인스타그램에서 더 많은 현장 사진 보기</span>
+                <span>인스타그램에서 이 게시물 바로보기</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>
@@ -134,9 +140,12 @@ export default function InstagramFeed() {
           }`}
         >
           {visiblePosts.map((post) => (
-            <div
+            <a
               key={post.id}
-              className="group relative aspect-square rounded-2xl overflow-hidden bg-slate-100 shadow-inner cursor-pointer"
+              href={post.postUrl || siteConfig.contact.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative aspect-square rounded-2xl overflow-hidden bg-slate-100 shadow-inner cursor-pointer block"
             >
               <div
                 className="w-full h-full bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
@@ -155,11 +164,17 @@ export default function InstagramFeed() {
                     <span>{post.comments}</span>
                   </div>
                 </div>
-                <p className="text-[10px] text-slate-200 line-clamp-2 leading-tight">
-                  {post.caption}
-                </p>
+                <div className="space-y-1">
+                  <p className="text-[10px] text-slate-200 line-clamp-2 leading-tight">
+                    {post.caption}
+                  </p>
+                  <p className="text-[9px] text-blue-300 font-semibold flex items-center gap-1">
+                    <span>인스타그램에서 보기</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </p>
+                </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       )}

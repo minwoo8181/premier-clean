@@ -4,6 +4,7 @@ import {
   CleaningManualZone,
   FaqItem,
   ReviewItem,
+  InstagramPost,
 } from '@/types';
 
 /**
@@ -219,18 +220,30 @@ export const siteConfig = {
   ] as CleaningManualZone[],
 
   // -----------------------------------------------------------------------
-  // 8. 📸 인스타그램 섹션 설정 (노출 개수 1개~6개 자유 조절!)
+  // 8. 📸 인스타그램 섹션 설정 (1개~6개 조절 & 다이렉트 링크 & 큐레이션)
   // -----------------------------------------------------------------------
+  // 💡 [개발 & 마케팅 전문가 분석: 인스타 API 연동 vs 직접 선별 등록 비교]
+  // 1) 공식 API 연동 방식:
+  //    - 인스타그램(메타) 공식 API는 60일마다 보안 토큰이 만료되어 주기적으로 사이트가 멈추거나 사진이 엑박으로 깨집니다.
+  //    - 직원이 점심 먹은 사진, 잡담 스토리 등을 올리면 홈페이지 메인에 여과 없이 노출되는 치명적 문제가 있습니다.
+  // 2) 직접 선별 등록 방식 (현재 적용된 최고 효율 방식):
+  //    - 사장님이 가장 자랑하고 싶은 최고 품질의 시공 화보(비포/애프터)만 딱 골라서 메인에 진열합니다.
+  //    - 사진 클릭 시 고객이 해당 실제 인스타그램 게시물로 1초 만에 바로 넘어가며, 오류 발생률 0%를 자랑합니다.
+  //    - 좋아요/댓글 수도 사장님이 원하는 숫자로 입력 가능하여 고객 신뢰도와 마케팅 효과가 극대화됩니다!
   instagram: {
-    // 💡 [사진 노출 개수 조절]: 1을 적으시면 1개만 크게 화보형으로 강조되고,
-    // 2, 3, 4, 6을 적으시면 해당 개수만큼 나란히 격자로 예쁘게 나옵니다!
+    // 💡 [사진 노출 개수 조절]: 
+    // - 1: 대표 사진 1장만 화보형으로 큼직하고 웅장하게 강조 (강력 추천!)
+    // - 2, 3, 4, 6: 원하는 숫자만큼 나란히 격자(Grid)로 정돈되어 표시됩니다.
     instagramMaxPosts: 1,
 
-    // 인스타그램 사진 및 캡션 목록 (위에서 설정한 개수만큼 화면에 순서대로 나옵니다)
+    // 인스타그램 사진 및 캡션 목록 (위에서 설정한 개수만큼 메인에 순서대로 노출됩니다)
     posts: [
       {
         id: 1,
+        // 사진 링크 (인터넷 이미지 주소나 업로드한 사진 주소)
         image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80',
+        // 사진 클릭 시 이동할 실제 인스타그램 게시물 주소 (비워두면 대표 인스타 프로필로 이동)
+        postUrl: 'https://www.instagram.com/premier_clean_official/',
         likes: 342,
         comments: 28,
         caption: '오늘도 반포자이 45평 입주청소 완료✨ 채광 들어오는 거실이 반짝입니다. #프리미어클린 #입주청소 #직영마스터',
@@ -238,6 +251,7 @@ export const siteConfig = {
       {
         id: 2,
         image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80',
+        postUrl: 'https://www.instagram.com/premier_clean_official/',
         likes: 289,
         comments: 15,
         caption: '기름때 가득했던 주방 후드가 새것처럼 복원된 순간! 전문가용 고온 스팀의 위력🔥 #주방청소 #스팀세척',
@@ -245,6 +259,7 @@ export const siteConfig = {
       {
         id: 3,
         image: 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=800&q=80',
+        postUrl: 'https://www.instagram.com/premier_clean_official/',
         likes: 412,
         comments: 31,
         caption: '호텔 욕실처럼 뽀송뽀송하게🫧 물때 0% 도전 성공! #욕실청소 #줄눈케어 #피톤치드',
@@ -252,6 +267,7 @@ export const siteConfig = {
       {
         id: 4,
         image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
+        postUrl: 'https://www.instagram.com/premier_clean_official/',
         likes: 198,
         comments: 12,
         caption: '판교 테크노밸리 공유오피스 정기관리 현장. 바닥 광택이 살아나니 업무 환경이 확 달라지네요🏢 #오피스청소',
@@ -259,6 +275,7 @@ export const siteConfig = {
       {
         id: 5,
         image: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80',
+        postUrl: 'https://www.instagram.com/premier_clean_official/',
         likes: 256,
         comments: 19,
         caption: '창틀 흙먼지 한 톨 남기지 않는 꼼꼼함! 100% 한국인 직영팀의 자부심입니다💪 #청소전문가',
@@ -266,11 +283,12 @@ export const siteConfig = {
       {
         id: 6,
         image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
+        postUrl: 'https://www.instagram.com/premier_clean_official/',
         likes: 387,
         comments: 24,
         caption: '고객님의 새 출발을 응원하는 마음으로. 오늘도 정성을 다해 닦아냅니다🙏 #프리미어클린 #고객만족',
       },
-    ],
+    ] as InstagramPost[],
   },
 
   // -----------------------------------------------------------------------

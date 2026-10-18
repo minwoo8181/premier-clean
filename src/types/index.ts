@@ -84,3 +84,12 @@ export interface ReceiptReviewItem {
   actualPhotoUrl: string;
 }
 
+export interface InstagramPost {
+  id: number;
+  image: string;
+  likes: number;
+  comments: number;
+  caption: string;
+  postUrl?: string;
+}
+

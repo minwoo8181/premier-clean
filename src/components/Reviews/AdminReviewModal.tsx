@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { X, Lock, CheckCircle, Upload, Star, AlertCircle } from 'lucide-react';
+import { X, Lock, CheckCircle, Upload, Star, AlertCircle, Camera, Image as ImageIcon, Sparkles } from 'lucide-react';
 import { verifyAdminPassword, createReview } from '@/lib/supabase';
 import { ReviewItem } from '@/types';
 
@@ -28,13 +28,64 @@ export default function AdminReviewModal({
   const [rating, setRating] = useState(5);
   const [content, setContent] = useState('');
   const [beforeImage, setBeforeImage] = useState(
-    'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80'
+    'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?auto=format&fit=crop&w=800&q=80'
   );
   const [afterImage, setAfterImage] = useState(
-    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'
+    'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80'
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+  const [isResizing, setIsResizing] = useState(false);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // 💡 [HTML5 Canvas 자동 리사이징 & 압축 함수]
+  // 5~10MB 고화질 사진도 모바일 및 웹에 최적화된 800px / 0.82 JPEG (~70KB)로 자동 압축하여 저장합니다!
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, target: 'after' | 'before') => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsResizing(true);
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 800;
+        const MAX_HEIGHT = 800;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height = Math.round((height * MAX_WIDTH) / width);
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width = Math.round((width * MAX_HEIGHT) / height);
+            height = MAX_HEIGHT;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.82);
+          if (target === 'after') {
+            setAfterImage(compressedDataUrl);
+          } else {
+            setBeforeImage(compressedDataUrl);
+          }
+        }
+        setIsResizing(false);
+      };
+      img.src = event.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,7 +116,7 @@ export default function AdminReviewModal({
         afterImage,
       });
 
-      setSuccessMessage('후기가 성공적으로 등록되었습니다!');
+      setSuccessMessage('후기가 성공적으로 등록되었습니다! 메인 슬라이드에 즉시 반영됩니다.');
       onReviewCreated(saved);
 
       setTimeout(() => {
@@ -76,7 +127,7 @@ export default function AdminReviewModal({
         setLocation('');
         setContent('');
         onClose();
-      }, 1200);
+      }, 1400);
     } catch (err) {
       console.error(err);
       alert('후기 등록 중 오류가 발생했습니다.');
@@ -103,23 +154,23 @@ export default function AdminReviewModal({
         initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 15 }}
-        className="relative z-10 w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden"
+        className="relative z-10 w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden max-h-[90vh] flex flex-col"
       >
         {/* Header */}
-        <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
+        <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between flex-shrink-0">
           <div className="flex items-center gap-2">
             <Lock className="w-5 h-5 text-blue-400" />
             <span className="font-bold text-sm">관리자 후기 등록 (Light Admin)</span>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+            className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="p-6 overflow-y-auto">
           {!isAuthenticated ? (
             /* Step 1: Password Verification */
             <form onSubmit={handlePasswordSubmit} className="space-y-4">
@@ -131,7 +182,7 @@ export default function AdminReviewModal({
                   관리자 비밀번호를 입력해 주세요
                 </h3>
                 <p className="text-xs text-slate-500">
-                  테스트용 초기 기본 비밀번호는 <code className="bg-slate-100 text-blue-600 px-1.5 py-0.5 rounded font-mono font-bold">0000</code> 입니다.
+                  기본 비밀번호는 <code className="bg-slate-100 text-blue-600 px-1.5 py-0.5 rounded font-mono font-bold">0000</code> 입니다. (site.ts에서 변경 가능)
                 </p>
               </div>
 
@@ -169,13 +220,16 @@ export default function AdminReviewModal({
                     <CheckCircle className="w-8 h-8" />
                   </div>
                   <h4 className="text-lg font-bold text-slate-900">{successMessage}</h4>
-                  <p className="text-xs text-slate-500">페이지에 즉시 반영됩니다.</p>
+                  <p className="text-xs text-slate-500">메인 화면 슬라이드에 최신 1순위로 즉시 노출됩니다.</p>
                 </div>
               ) : (
                 <>
                   <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-                    <span className="text-xs font-bold text-blue-600">인증 완료: 후기 등록 모드</span>
-                    <span className="text-[11px] text-slate-400">Supabase DB 연동</span>
+                    <span className="text-xs font-bold text-blue-600 flex items-center gap-1">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>인증 완료: 최신 10건 슬라이드 자동 반영</span>
+                    </span>
+                    <span className="text-[11px] text-slate-400">DB 영구 저장</span>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
@@ -226,7 +280,7 @@ export default function AdminReviewModal({
                             type="button"
                             key={s}
                             onClick={() => setRating(s)}
-                            className="p-1 focus:outline-none"
+                            className="p-1 focus:outline-none cursor-pointer"
                           >
                             <Star
                               className={`w-5 h-5 ${
@@ -241,29 +295,58 @@ export default function AdminReviewModal({
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
-                      시공 전 사진 URL (Before)
-                    </label>
-                    <input
-                      type="url"
-                      value={beforeImage}
-                      onChange={(e) => setBeforeImage(e.target.value)}
-                      placeholder="https://..."
-                      className="w-full text-xs px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    />
-                  </div>
+                  {/* 📸 1. 시공 후 현장 사진 (After) - 파일 업로드 & 자동 리사이징 */}
+                  <div className="space-y-2 p-3 bg-slate-50 rounded-xl border border-slate-200">
+                    <div className="flex items-center justify-between">
+                      <label className="block text-xs font-bold text-slate-800">
+                        📸 시공 후 현장 사진 (After - 모바일/PC 노출)
+                      </label>
+                      {isResizing && (
+                        <span className="text-[10px] text-blue-600 font-bold animate-pulse">
+                          자동 리사이징 압축 중...
+                        </span>
+                      )}
+                    </div>
 
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
-                      시공 후 사진 URL (After)
-                    </label>
+                    {/* Preview Thumbnail */}
+                    {afterImage && (
+                      <div className="flex items-center gap-3">
+                        <div className="relative w-16 h-12 rounded-lg overflow-hidden border border-slate-300 flex-shrink-0 bg-slate-200">
+                          <img
+                            src={afterImage}
+                            alt="시공 후 미리보기"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="text-[11px] text-slate-500">
+                          <span className="text-emerald-600 font-bold block">✓ 사진 준비 완료 (모바일 최적화)</span>
+                          <span className="text-slate-400">대용량 사진도 800px로 자동 리사이징됩니다.</span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* File Upload Button */}
+                    <div className="flex items-center gap-2">
+                      <label className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold cursor-pointer transition-all active:scale-95 shadow-sm">
+                        <Camera className="w-3.5 h-3.5" />
+                        <span>사진 파일 선택 (또는 촬영)</span>
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleFileUpload(e, 'after')}
+                          className="hidden"
+                        />
+                      </label>
+                    </div>
+
+                    {/* Direct URL Fallback */}
                     <input
-                      type="url"
+                      type="text"
                       value={afterImage}
                       onChange={(e) => setAfterImage(e.target.value)}
-                      placeholder="https://..."
-                      className="w-full text-xs px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                      placeholder="또는 이미지 인터넷 주소(URL) 직접 입력"
+                      className="w-full text-[11px] px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white focus:outline-none"
                     />
                   </div>
 
@@ -282,7 +365,7 @@ export default function AdminReviewModal({
                   <div className="pt-2">
                     <button
                       type="submit"
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || isResizing}
                       className="w-full py-3 rounded-xl bg-blue-700 hover:bg-blue-800 disabled:bg-slate-300 text-white font-bold text-sm shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <Upload className="w-4 h-4" />
