@@ -6,6 +6,7 @@ import About from '@/components/About';
 import CleaningProcess from '@/components/CleaningProcess';
 import Services from '@/components/Services';
 import ReviewsSection from '@/components/Reviews/ReviewsSection';
+import InstagramSection from '@/components/Reviews/InstagramSection';
 import FaqSection from '@/components/FaqSection';
 import Contact from '@/components/Contact';
 import FloatingActions from '@/components/FloatingActions';
@@ -22,6 +23,7 @@ const SECTION_COMPONENTS: Record<SectionId, React.ComponentType> = {
   process: CleaningProcess,
   services: Services,
   reviews: ReviewsSection,
+  instagram: InstagramSection,
   faq: FaqSection,
   contact: Contact,
 };
@@ -34,6 +36,7 @@ export default function Home() {
     'process',
     'services',
     'reviews',
+    'instagram',
     'faq',
     'contact',
   ];
@@ -43,7 +46,7 @@ export default function Home() {
       {/* Fixed Sticky Header */}
       <Header />
 
-      {/* Main Sections (site.ts의 sectionOrder 순서대로 자동 동적 렌더링!) */}
+      {/* Main Sections (site.ts의 sectionOrder 순서대로 자유자재 자동 동적 렌더링!) */}
       <main className="flex-1">
         {sectionOrder.map((sectionId) => {
           const Component = SECTION_COMPONENTS[sectionId];

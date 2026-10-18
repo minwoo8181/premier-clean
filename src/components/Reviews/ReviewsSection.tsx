@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { Sparkles, Star } from 'lucide-react';
 import ReviewCarousel from './ReviewCarousel';
-import InstagramFeed from './InstagramFeed';
 import { fetchReviews } from '@/lib/supabase';
 import { ReviewItem } from '@/types';
 import { INITIAL_REVIEWS } from '@/lib/mockData';
@@ -23,7 +22,7 @@ export default function ReviewsSection() {
 
   return (
     <section id="reviews" className="py-20 lg:py-28 2xl:py-36 bg-slate-50 relative">
-      <div className="max-w-7xl 2xl:max-w-[1680px] 3xl:max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 space-y-12 lg:space-y-16">
+      <div className="max-w-7xl 2xl:max-w-[1680px] 3xl:max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 space-y-10 lg:space-y-12">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
@@ -51,14 +50,9 @@ export default function ReviewsSection() {
           </div>
         </div>
 
-        {/* 1. 단일화된 실제 고객 시공 후기 캐러셀 */}
+        {/* 단일화된 실제 고객 시공 후기 슬라이드 캐러셀 */}
         <div>
           <ReviewCarousel reviews={reviews} />
-        </div>
-
-        {/* 2. 인스타그램 공식 계정 현장 피드 (siteConfig에서 1개~6개 자유 조절) */}
-        <div className="pt-2">
-          <InstagramFeed />
         </div>
 
       </div>

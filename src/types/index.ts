@@ -100,6 +100,7 @@ export type SectionId =
   | 'process'
   | 'services'
   | 'reviews'
+  | 'instagram'
   | 'faq'
   | 'contact';
 
