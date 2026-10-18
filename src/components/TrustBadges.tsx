@@ -16,64 +16,69 @@ export default function TrustBadges() {
   const badges = siteConfig.trustBadges;
 
   return (
-    <section className="py-12 bg-white border-y border-slate-100 relative">
+    <section className="py-6 sm:py-8 bg-gradient-to-b from-white via-slate-50/70 to-white border-y border-slate-200/80 relative">
       <div className="max-w-7xl 2xl:max-w-[1680px] 3xl:max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12">
         
-        {/* Section Mini Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-8 gap-3">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-xs font-black tracking-wider text-slate-500 uppercase">
-              100% 본사 직영 책임 시공 보증제
-            </span>
+        {/* Sleek Certificate Header Bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-4 border-b border-slate-200/60 gap-2">
+          <div className="flex items-center gap-2.5">
+            <div className="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center shadow-sm shadow-blue-500/30 flex-shrink-0">
+              <ShieldCheck className="w-4 h-4 stroke-[2.5]" />
+            </div>
+            <div>
+              <span className="font-extrabold text-slate-900 tracking-tight text-sm sm:text-base">
+                프리미어 클린 4대 고객 안심 보증 서약제
+              </span>
+              <span className="hidden md:inline text-slate-300 mx-2">|</span>
+              <span className="hidden md:inline text-xs text-slate-500 font-medium">
+                파손·선금·A/S·추가금 우려를 법적·금전적으로 100% 사전 차단합니다
+              </span>
+            </div>
           </div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1 rounded-full">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>고객 불안 요소 4대 사전 차단</span>
+
+          <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200/80 self-start sm:self-auto">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+            <span>본사 직영 공식 보증</span>
           </div>
         </div>
 
-        {/* 4 Badges Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {/* 4 Guarantees Strip: Divided Horizontal Row on Desktop, 2x2 Grid on Mobile */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-0 lg:divide-x lg:divide-slate-200/80">
           {badges.map((item, index) => {
-            const IconComponent = ICON_MAP[item.iconName] || ShieldCheck;
+            const IconComponent = ICON_MAP[item.iconName as keyof typeof ICON_MAP] || ShieldCheck;
+
             return (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="bg-slate-50/80 hover:bg-white rounded-2xl p-5 border border-slate-200/80 hover:border-blue-400 hover:shadow-lg transition-all duration-200 flex flex-col justify-between group"
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+                className="group relative bg-white lg:bg-transparent rounded-2xl lg:rounded-none p-3.5 sm:p-4 lg:px-5 lg:py-2 border lg:border-none border-slate-200/70 hover:bg-white lg:hover:bg-slate-100/60 transition-all duration-200 flex items-start gap-3.5"
               >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="w-11 h-11 rounded-xl bg-blue-600/10 text-blue-700 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200 flex items-center justify-center">
-                      <IconComponent className="w-5 h-5 stroke-[2.2]" />
-                    </div>
-                    <span className="text-[11px] font-bold text-blue-700 bg-blue-100/60 group-hover:bg-blue-600 group-hover:text-white px-2.5 py-0.5 rounded-full transition-colors">
-                      {item.badge}
-                    </span>
-                  </div>
-
-                  <div>
-                    <h3 className="text-base font-black text-slate-900 group-hover:text-blue-700 transition-colors break-keep">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs font-bold text-blue-600 mt-0.5 break-keep">
-                      {item.subtitle}
-                    </p>
-                  </div>
-
-                  <p className="text-xs text-slate-600 leading-relaxed font-normal break-keep">
-                    {item.description}
-                  </p>
+                {/* Icon Container */}
+                <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200 flex items-center justify-center flex-shrink-0 shadow-sm">
+                  <IconComponent className="w-5 h-5 stroke-[2.2]" />
                 </div>
 
-                <div className="pt-3 mt-4 border-t border-slate-200/60 flex items-center gap-1.5 text-[11px] font-semibold text-slate-500">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>공식 보증 원칙 준수</span>
+                {/* Text Block */}
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="text-[10px] font-black text-blue-700 bg-blue-100/70 group-hover:bg-blue-600 group-hover:text-white px-2 py-0.5 rounded-md transition-colors">
+                      {item.badge}
+                    </span>
+                    <h3 className="text-xs sm:text-sm font-black text-slate-900 group-hover:text-blue-700 transition-colors truncate">
+                      {item.title}
+                    </h3>
+                  </div>
+
+                  <p className="text-[11px] sm:text-xs font-bold text-blue-600 mt-0.5 break-keep">
+                    {item.subtitle}
+                  </p>
+
+                  <p className="text-[11px] text-slate-500 mt-1 leading-snug line-clamp-2 hidden sm:block font-normal">
+                    {item.description}
+                  </p>
                 </div>
               </motion.div>
             );
@@ -84,3 +89,4 @@ export default function TrustBadges() {
     </section>
   );
 }
+

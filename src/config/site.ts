@@ -70,23 +70,24 @@ export const siteConfig = {
   },
 
   // -----------------------------------------------------------------------
-  // 5. 🛡️ 4대 안심 보증 배지 (Trust Badges)
+  // 5. 🛡️ 고객 보호 4대 안심 보증 서약 (Trust Badges / 공식 보증 바)
+  // (사기·바가지·파손·A/S 불이행 등 고객의 불안 요소를 법적·금전적으로 100% 차단합니다)
   // -----------------------------------------------------------------------
   trustBadges: [
     {
       id: 'insurance',
-      badge: '공식 안심 가입',
+      badge: 'KB손해보험',
       title: '영업배상책임 5억 원 가입',
-      subtitle: '시공 중 파손 우려 100% 해소',
-      description: '작업 중 발생할 수 있는 기물 파손, 스크래치 사고에 대비해 KB손해보험 5억 원 영업배상책임보험에 정식 가입되어 있습니다.',
+      subtitle: '시공 중 파손 시 100% 전액 보상',
+      description: '작업 중 발생할 수 있는 가전·가구 파손, 마루 스크래치 사고에 대비해 KB손해보험 5억 원 영업배상책임보험에 정식 가입되어 있습니다.',
       iconName: 'ShieldCheck',
     },
     {
       id: 'postpay',
-      badge: '불안감 ZERO',
+      badge: '선입금 0원',
       title: '100% 검수 후 안심 후불제',
-      subtitle: '만족하지 않으시면 결제받지 않습니다',
-      description: '선금을 과도하게 요구하지 않습니다. 고객님이 현장에 직접 방문하여 1:1 동행 검수를 마친 후 만족하셨을 때 최종 결제합니다.',
+      subtitle: '고객 만족 시에만 최종 결제',
+      description: '선금을 과도하게 요구하거나 예약금을 강요하지 않습니다. 고객님이 현장에 직접 방문하여 1:1 동행 검수를 마친 후 만족하셨을 때 결제합니다.',
       iconName: 'CreditCard',
     },
     {
@@ -99,61 +100,62 @@ export const siteConfig = {
     },
     {
       id: 'zero-extra',
-      badge: '정직한 원칙',
+      badge: '투명 정찰제',
       title: '식사비·수고비 일체 요구 0원',
-      subtitle: '투명한 사전 고지 & 추가금 강요 금지',
-      description: '현장에서 기사 식대나 음료수, 부당한 추가 작업비를 절대 요구하지 않습니다. 계약된 내용 그대로 정직하게 시공합니다.',
+      subtitle: '현장 부당 추가금 강요 절대 금지',
+      description: '현장에서 기사 식대나 음료수, 부당한 추가 작업비를 절대 요구하지 않습니다. 사전에 확정된 견적 금액 그대로 정직하게 시공합니다.',
       iconName: 'Coffee',
     },
   ] as TrustBadgeItem[],
 
   // -----------------------------------------------------------------------
-  // 6. 🤝 프리미어 클린이 타협하지 않는 4가지 핵심 약속 (About 섹션)
+  // 6. ✨ 프리미어 클린이 타협하지 않는 4대 장인 시공 원칙 (About 섹션)
+  // (일반 청소와 차별화되는 사람·세제·탈거공정·실시간 소통의 4대 기술 기준)
   // -----------------------------------------------------------------------
   coreValues: [
     {
       id: 'direct-team',
-      badge: '신뢰도 1위',
-      title: '100% 한국인 직영팀',
+      badge: '직영 100%',
+      title: '100% 한국인 직영 마스터팀',
       subtitle: '하도급·외주 프리랜서 제로',
-      description: '외주나 일용직 인력에 위탁하지 않습니다. 본사 정규 교육을 이수한 베테랑 한국인 팀장과 크루가 직접 현장을 책임집니다.',
-      highlight: '100% 본사 직영 시스템',
+      description: '외주 용역이나 일용직 인력에 하청을 주지 않습니다. 본사 정규 아카데미 교육을 이수한 베테랑 한국인 정규 크루가 직접 현장을 책임집니다.',
+      highlight: '본사 정규직 크루 100% 책임 시공',
       gradient: 'from-blue-600 to-indigo-600',
       border: 'border-blue-100 hover:border-blue-300',
       iconName: 'Users2',
     },
     {
-      id: 'satisfaction',
-      badge: '고객 만족',
-      title: '고객 만족도 99%',
-      subtitle: '압도적인 실사용자 평가',
-      description: '12,000건 이상의 누적 시공 데이터와 꼼꼼한 체크리스트 기반의 검수 프로세스로 최상의 청결 만족을 선사합니다.',
-      highlight: '검증된 평점 4.98점',
-      gradient: 'from-indigo-600 to-sky-600',
-      border: 'border-indigo-100 hover:border-indigo-300',
-      iconName: 'ThumbsUp',
-    },
-    {
       id: 'eco-equipment',
-      badge: '안심 케어',
-      title: '친환경 생분해 세제 & 전문 장비',
-      subtitle: '영유아·반려동물 안심 케어',
-      description: '저가 락스나 독성 약품을 일체 배제합니다. 산업용 고온 스팀 장비와 천연 생분해 친환경 세제만을 고집하여 냄새와 잔여물이 없습니다.',
-      highlight: '친환경 100% 안심 인증',
+      badge: '친환경 케어',
+      title: '독일 명품 장비 & 친환경 세제',
+      subtitle: '영유아·반려동물 안심 케어 (락스 독성 0%)',
+      description: '저가 독성 락스나 유독성화학약품을 일체 배제합니다. 독일 키엘(Kiehl) 친환경 생분해 세제와 카처 150℃ 고온 스팀으로 유해 세균을 멸균합니다.',
+      highlight: '친환경 인증 세제 & 150℃ 고온 스팀',
       gradient: 'from-emerald-600 to-teal-600',
       border: 'border-emerald-100 hover:border-emerald-300',
       iconName: 'Leaf',
     },
     {
-      id: 'warranty-as',
-      badge: '책임 보장',
-      title: '100% 무료 A/S 보장 시스템',
-      subtitle: '불만족 시 무상 재방문 케어',
-      description: '시공 후 미흡한 점이 발견되면 청소일 기준 3일 이내 신속하게 무상 재방문하여 완벽히 재케어해 드립니다.',
-      highlight: '3일 이내 무상 책임제',
-      gradient: 'from-blue-700 to-blue-500',
-      border: 'border-sky-100 hover:border-sky-300',
-      iconName: 'RotateCcw',
+      id: 'full-disassembly',
+      badge: '완전 탈거',
+      title: '전 구역 100% 완전 분리 탈거',
+      subtitle: '보이지 않는 숨은 공사 분진 완전 박멸',
+      description: '눈에 보이는 곳만 닦는 수박 겉핥기 청소는 거부합니다. 싱크대 걸레받이, 전등갓, 수납장 서랍, 배수구, 환풍기까지 100% 탈거하여 미세 분진을 흡입합니다.',
+      highlight: '서랍·전등·배수구·환풍기 100% 탈거 세척',
+      gradient: 'from-indigo-600 to-sky-600',
+      border: 'border-indigo-100 hover:border-indigo-300',
+      iconName: 'Layers',
+    },
+    {
+      id: 'live-briefing',
+      badge: '실시간 소통',
+      title: '1:1 실시간 현장 소통 & 동행 검수',
+      subtitle: '청소 전·중·후 실시간 사진 전송 및 마감 브리핑',
+      description: '작업 시작부터 각 구역별 청소 진행 상황을 카카오톡 실시간 사진으로 투명하게 공유해 드립니다. 시공 완료 후 1:1 동행 검수를 통해 고객 만족 시에만 퇴장합니다.',
+      highlight: '실시간 사진 전송 & 1:1 동행 검수',
+      gradient: 'from-purple-600 to-blue-600',
+      border: 'border-purple-100 hover:border-purple-300',
+      iconName: 'Camera',
     },
   ] as CoreValueItem[],
 

@@ -2,14 +2,30 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Users2, ThumbsUp, Leaf, RotateCcw, ShieldCheck, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  Users2,
+  Leaf,
+  Layers,
+  Camera,
+  ThumbsUp,
+  RotateCcw,
+  Sparkles,
+  ShieldCheck,
+  CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
 import { siteConfig } from '@/config/site';
 
 const ICON_MAP = {
   Users2,
-  ThumbsUp,
   Leaf,
+  Layers,
+  Camera,
+  ThumbsUp,
   RotateCcw,
+  Sparkles,
+  ShieldCheck,
 };
 
 export default function About() {
@@ -38,18 +54,18 @@ export default function About() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/80 text-blue-700 text-xs font-black tracking-wide uppercase">
-            <ShieldCheck className="w-4 h-4" />
-            <span>PREMIER CLEAN CORE VALUES</span>
+            <Sparkles className="w-4 h-4 text-blue-600" />
+            <span>CRAFTSMANSHIP & CORE STANDARDS</span>
           </div>
           
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight break-keep">
             프리미어 클린이 타협하지 않는{' '}
-            <span className="text-blue-700 inline-block">4가지 약속</span>
+            <span className="text-blue-700 inline-block">4가지 시공 원칙</span>
           </h2>
 
           <p className="text-xs sm:text-base text-slate-600 font-normal leading-relaxed break-keep max-w-2xl mx-auto">
             비용만 깎고 겉만 훑는 일반 청소와 비교하지 말아주세요.
-            기술력과 정직함으로 증명하는 4대 핵심 원칙입니다.
+            사람·세제·탈거공정·실시간 소통으로 증명하는 4대 장인 기준입니다.
           </p>
         </div>
 
@@ -73,7 +89,7 @@ export default function About() {
                   }`}
                 >
                   <TabIcon className={`w-3.5 h-3.5 ${isActive ? 'text-sky-200' : 'text-blue-600'}`} />
-                  <span className="truncate">{val.title.replace('100%', '').trim()}</span>
+                  <span className="truncate">{val.badge}</span>
                 </button>
               );
             })}

@@ -49,7 +49,7 @@ export interface CoreValueItem {
   highlight: string;
   gradient: string;
   border: string;
-  iconName: 'Users2' | 'ThumbsUp' | 'Leaf' | 'RotateCcw';
+  iconName: 'Users2' | 'ThumbsUp' | 'Leaf' | 'RotateCcw' | 'Layers' | 'Camera' | 'Sparkles' | 'ShieldCheck';
 }
 
 export interface CleaningManualZone {
