@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Sparkles, Phone, Mail, MapPin, ShieldCheck } from 'lucide-react';
 import { siteConfig } from '@/config/site';
@@ -5,7 +7,7 @@ import { siteConfig } from '@/config/site';
 export default function Footer() {
   return (
     <footer className="bg-slate-950 text-slate-400 border-t border-slate-800 text-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-10">
+      <div className="max-w-7xl 2xl:max-w-[1680px] 3xl:max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-10">
         
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 justify-between">
           
@@ -90,9 +92,17 @@ export default function Footer() {
             </p>
           </div>
 
-          <p className="text-center md:text-right">
-            &copy; 2026 {siteConfig.brand.englishName}. All rights reserved.
-          </p>
+          <div className="flex items-center gap-2 text-center md:text-right">
+            <span>&copy; 2026 {siteConfig.brand.englishName}. All rights reserved.</span>
+            <span className="text-slate-800">|</span>
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-admin-modal'))}
+              className="text-slate-600 hover:text-slate-400 text-[10px] transition-colors cursor-pointer"
+              title="관리자 모드"
+            >
+              관리자
+            </button>
+          </div>
         </div>
 
       </div>

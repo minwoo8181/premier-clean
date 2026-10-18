@@ -15,7 +15,7 @@ export default function FaqSection() {
 
   return (
     <section id="faq" className="py-20 lg:py-28 bg-white relative">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <div className="max-w-4xl 2xl:max-w-5xl 3xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 2xl:space-y-16">
         
         {/* Header */}
         <div className="text-center space-y-4">

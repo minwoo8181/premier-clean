@@ -1,19 +1,15 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Edit3 } from 'lucide-react';
-import BeforeAfterSlider from './BeforeAfterSlider';
+import { Sparkles, Star } from 'lucide-react';
 import ReviewCarousel from './ReviewCarousel';
-import ReceiptReviewGrid from './ReceiptReviewGrid';
 import InstagramFeed from './InstagramFeed';
-import AdminReviewModal from './AdminReviewModal';
 import { fetchReviews } from '@/lib/supabase';
 import { ReviewItem } from '@/types';
 import { INITIAL_REVIEWS } from '@/lib/mockData';
 
 export default function ReviewsSection() {
   const [reviews, setReviews] = useState<ReviewItem[]>(INITIAL_REVIEWS);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     async function loadReviews() {
@@ -25,86 +21,47 @@ export default function ReviewsSection() {
     loadReviews();
   }, []);
 
-  const handleReviewCreated = (newReview: ReviewItem) => {
-    setReviews((prev) => [newReview, ...prev]);
-  };
-
   return (
-    <section id="reviews" className="py-20 lg:py-28 bg-slate-100/70 relative">
-      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 space-y-16">
+    <section id="reviews" className="py-16 lg:py-24 2xl:py-32 bg-slate-50 relative">
+      <div className="max-w-7xl 2xl:max-w-[1680px] 3xl:max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 space-y-12 lg:space-y-16">
         
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-4 border-b border-slate-200">
-          <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>REAL TRANSFORMATIONS & REVIEWS</span>
+        {/* Section Header (공개 화면에서 관리자 버튼 완전 삭제하여 고객 신뢰도 확보) */}
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100 text-blue-700 text-xs font-black uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>REAL VERIFIED CUSTOMER REVIEWS</span>
+          </div>
+
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight break-keep">
+            결과로 증명하는{' '}
+            <span className="text-blue-700 inline-block">실제 고객 시공 후기</span>
+          </h2>
+
+          <p className="text-xs sm:text-base text-slate-600 max-w-xl mx-auto break-keep leading-relaxed font-normal">
+            100% 한국인 직영 마스터팀이 현장에서 직접 시공하고 고객님과 동행 검수를 마친 실제 후기입니다.
+          </p>
+
+          <div className="inline-flex items-center gap-2 pt-1 text-xs font-bold text-amber-600 bg-amber-50 border border-amber-200/80 px-3.5 py-1.5 rounded-full">
+            <div className="flex items-center gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              ))}
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight break-keep">
-              결과로 증명하는{' '}
-              <span className="text-blue-700 inline-block">생생한 작업 후기</span>
-            </h2>
-            <p className="text-sm sm:text-base text-slate-600 max-w-xl break-keep">
-              100% 한국인 직영 마스터팀이 직접 시공한 비포 & 애프터 현장 사진과 실제 의뢰 고객님들의 평가를 확인해 보세요.
-            </p>
-          </div>
-
-          {/* Light-weight Admin [글쓰기] Button */}
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 hover:text-blue-700 border border-slate-300 font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-sm transition-all active:scale-95 cursor-pointer"
-            >
-              <Edit3 className="w-4 h-4 text-blue-600" />
-              <span>후기 등록 (관리자)</span>
-            </button>
+            <span>고객 평점 4.98 / 5.0 만점 기준</span>
           </div>
         </div>
 
-        {/* 1. Interactive Before & After Split Slider */}
-        <div className="space-y-6">
-          <div className="text-center md:text-left">
-            <h3 className="text-xl sm:text-2xl font-black text-slate-900">
-              정밀 비교 비포 & 애프터
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              실제 시공 전/후의 극명한 차이를 확인하세요.
-            </p>
-          </div>
-          <BeforeAfterSlider />
-        </div>
-
-        {/* 2. Luminous Glassmorphic Review Carousel */}
-        <div className="space-y-6 pt-2">
+        {/* 1. 단일화된 실제 고객 시공 후기 캐러셀 */}
+        <div>
           <ReviewCarousel reviews={reviews} />
         </div>
 
-        {/* 3. Real Customer Receipt & Inspection Checklist Grid (신뢰도 핵심) */}
-        <div className="space-y-6 pt-4">
-          <ReceiptReviewGrid />
-        </div>
-
-        {/* 4. Instagram Feed UI Mockup */}
-        <div className="space-y-6 pt-4">
-          <div className="text-center md:text-left">
-            <h3 className="text-xl sm:text-2xl font-black text-slate-900">
-              인스타그램 공식 현장 피드
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              매일 업데이트되는 수도권 전역의 마스터케어 현장 스토리
-            </p>
-          </div>
+        {/* 2. 인스타그램 공식 계정 현장 피드 (siteConfig에서 1개~6개 자유 조절) */}
+        <div className="pt-4">
           <InstagramFeed />
         </div>
 
       </div>
-
-      {/* Admin Review Upload Modal */}
-      <AdminReviewModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onReviewCreated={handleReviewCreated}
-      />
     </section>
   );
 }

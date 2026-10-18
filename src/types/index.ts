@@ -40,6 +40,18 @@ export interface TrustBadgeItem {
   iconName: 'ShieldCheck' | 'CreditCard' | 'RotateCcw' | 'Coffee';
 }
 
+export interface CoreValueItem {
+  id: string;
+  badge: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  highlight: string;
+  gradient: string;
+  border: string;
+  iconName: 'Users2' | 'ThumbsUp' | 'Leaf' | 'RotateCcw';
+}
+
 export interface CleaningManualZone {
   id: string;
   zone: string;
@@ -47,7 +59,8 @@ export interface CleaningManualZone {
   summary: string;
   disassemblyTargets: string[]; // 100% 완전 탈거 부위 목록
   specialMethods: string[];     // 특수 공정 및 장비
-  image: string;
+  beforeImage: string;          // 시공 전 사진
+  afterImage: string;           // 시공 후 사진
   tag: string;
 }
 

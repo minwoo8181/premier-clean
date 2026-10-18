@@ -1,23 +1,25 @@
 import {
   TrustBadgeItem,
+  CoreValueItem,
   CleaningManualZone,
   FaqItem,
-  ReceiptReviewItem,
+  ReviewItem,
 } from '@/types';
 
 /**
  * =========================================================================
  * 🌟 [프리미어 클린] 중앙 통합 설정 파일 (Site Configuration)
  * =========================================================================
- * 토스(Toss) / 리니어(Linear) 감성의 정갈하고 투명한 통합 설정 파일입니다.
- * 비개발자나 운영자도 이 파일 하나만 수정하면 웹사이트의 모든
- * 전화번호, 사진, 카카오톡/인스타 링크, 사업자 정보, 안심 보증, 구역별 공정,
- * FAQ, 검수 후기, DB/이메일 키가 즉시 바뀝니다!
+ * 💡 관리자 안내:
+ * 개발을 전혀 모르셔도 괜찮습니다!
+ * 전화번호, 사진 링크, 카카오톡/인스타 주소, 사업자 정보, 안심 보증 문구,
+ * 4대 약속, 청소 공정 내용, 인스타그램 사진 개수, 관리자 비밀번호 등
+ * 홈페이지의 모든 것을 이 파일 하나에서 따옴표(' ') 안의 글자나 숫자만 바꾸시면 됩니다.
  */
 
 export const siteConfig = {
   // -----------------------------------------------------------------------
-  // 1. 기본 브랜드 정보 (홈/상업 50:50 균형)
+  // 1. 기본 브랜드 정보
   // -----------------------------------------------------------------------
   brand: {
     name: '프리미어 클린',
@@ -28,7 +30,7 @@ export const siteConfig = {
   },
 
   // -----------------------------------------------------------------------
-  // 2. 고객센터 및 연락처 정보 (전화번호/카카오톡 링크 변경 시 여기서만 수정!)
+  // 2. 고객센터 및 연락처 정보 (전화번호/카톡 바꿀 때 여기서 수정!)
   // -----------------------------------------------------------------------
   contact: {
     phone: '1800-0000',                                                               // 대표 전화번호 (화면 표시용)
@@ -37,12 +39,12 @@ export const siteConfig = {
     email: 'contact@premierclean.co.kr',
     kakaoChatUrl: process.env.NEXT_PUBLIC_KAKAO_CHAT_URL || 'https://open.kakao.com', // 카카오톡 1:1 상담 링크
     instagramUrl: 'https://instagram.com',                                            // 공식 인스타그램 링크
-    instagramHandle: 'premierclean_official',
+    instagramHandle: 'premierclean_official',                                         // 인스타그램 계정 아이디
     formSubtitle: '원하시는 공간과 일정에 맞춰 최적의 맞춤 견적을 신속히 1:1 상담 안내해 드립니다.', // 견적 폼 서브타이틀
   },
 
   // -----------------------------------------------------------------------
-  // 3. 회사 및 사업자 등록 정보 (Footer에 표시)
+  // 3. 회사 및 사업자 등록 정보 (웹사이트 맨 아래 Footer에 표시)
   // -----------------------------------------------------------------------
   company: {
     corporateName: '(주)프리미어클린마스터',
@@ -56,7 +58,7 @@ export const siteConfig = {
   },
 
   // -----------------------------------------------------------------------
-  // 4. 메인 히어로 섹션 이미지 & 실적 수치
+  // 4. 메인 화면 상단(Hero) 배경 사진 및 실적 수치
   // -----------------------------------------------------------------------
   hero: {
     backgroundImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=85',
@@ -105,17 +107,69 @@ export const siteConfig = {
   ] as TrustBadgeItem[],
 
   // -----------------------------------------------------------------------
-  // 6. 🧼 공간 구역별 완전 탈거·멸균 프로세스 (구역별 정밀 청소 매뉴얼)
+  // 6. 🤝 프리미어 클린이 타협하지 않는 4가지 핵심 약속 (About 섹션)
+  // -----------------------------------------------------------------------
+  coreValues: [
+    {
+      id: 'direct-team',
+      badge: '신뢰도 1위',
+      title: '100% 한국인 직영팀',
+      subtitle: '하도급·외주 프리랜서 제로',
+      description: '외주나 일용직 인력에 위탁하지 않습니다. 본사 정규 교육을 이수한 베테랑 한국인 팀장과 크루가 직접 현장을 책임집니다.',
+      highlight: '100% 본사 직영 시스템',
+      gradient: 'from-blue-600 to-indigo-600',
+      border: 'border-blue-100 hover:border-blue-300',
+      iconName: 'Users2',
+    },
+    {
+      id: 'satisfaction',
+      badge: '고객 만족',
+      title: '고객 만족도 99%',
+      subtitle: '압도적인 실사용자 평가',
+      description: '12,000건 이상의 누적 시공 데이터와 꼼꼼한 체크리스트 기반의 검수 프로세스로 최상의 청결 만족을 선사합니다.',
+      highlight: '검증된 평점 4.98점',
+      gradient: 'from-indigo-600 to-sky-600',
+      border: 'border-indigo-100 hover:border-indigo-300',
+      iconName: 'ThumbsUp',
+    },
+    {
+      id: 'eco-equipment',
+      badge: '안심 케어',
+      title: '친환경 생분해 세제 & 전문 장비',
+      subtitle: '영유아·반려동물 안심 케어',
+      description: '저가 락스나 독성 약품을 일체 배제합니다. 산업용 고온 스팀 장비와 천연 생분해 친환경 세제만을 고집하여 냄새와 잔여물이 없습니다.',
+      highlight: '친환경 100% 안심 인증',
+      gradient: 'from-emerald-600 to-teal-600',
+      border: 'border-emerald-100 hover:border-emerald-300',
+      iconName: 'Leaf',
+    },
+    {
+      id: 'warranty-as',
+      badge: '책임 보장',
+      title: '100% 무료 A/S 보장 시스템',
+      subtitle: '불만족 시 무상 재방문 케어',
+      description: '시공 후 미흡한 점이 발견되면 청소일 기준 3일 이내 신속하게 무상 재방문하여 완벽히 재케어해 드립니다.',
+      highlight: '3일 이내 무상 책임제',
+      gradient: 'from-blue-700 to-blue-500',
+      border: 'border-sky-100 hover:border-sky-300',
+      iconName: 'RotateCcw',
+    },
+  ] as CoreValueItem[],
+
+  // -----------------------------------------------------------------------
+  // 7. 🧼 구역별 정밀 공정 매뉴얼 + 비포 & 애프터(Before & After) 슬라이더 통합
+  // (각 구역의 시공 전/후 사진과 탈거 부위, 멸균 기술을 한곳에서 수정합니다!)
   // -----------------------------------------------------------------------
   cleaningManualZones: [
     {
       id: 'kitchen',
       zone: 'KITCHEN ZONE',
       title: '주방 딥클리닝 & 150℃ 고온 스팀',
-      summary: '가장 위생적이어야 할 식사 공간, 기름때와 탄화물을 완전 분해 세척합니다.',
+      summary: '기름때와 탄화물을 완전 분해 세척하여 새 주방처럼 복원합니다.',
+      beforeImage: 'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?auto=format&fit=crop&w=1200&q=80',
+      afterImage: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80',
       disassemblyTargets: ['렌지후드 금속 필터망', '가스레인지 화구 및 삼발이', '싱크대 하부 걸레받이(가림판)', '칼꽂이 및 배수구 트랩'],
       specialMethods: ['150℃ 산업용 고온 스팀 분사 멸균', '친환경 생분해 오븐/기름때 연마제', '싱크볼 물때 스케일링 및 수전 살균'],
-      image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1000&q=80',
       tag: '기름때·탄자국 박멸',
     },
     {
@@ -123,9 +177,10 @@ export const siteConfig = {
       zone: 'BATHROOM ZONE',
       title: '욕실 멸균 케어 & 나노 유막 코팅',
       summary: '물때, 요석, 곰팡이 포자까지 뿌리 뽑는 위생 멸균 프로세스',
+      beforeImage: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80',
+      afterImage: 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1200&q=80',
       disassemblyTargets: ['환풍기 겉커버 및 내부 모터팬', '바닥·세면대 배수구 유가 트랩', '샤워부스 물막이 패킹', '욕조 및 좌변기 틈새 커버'],
       specialMethods: ['고압 멸균 스팀 및 곰팡이 전용 박멸제', '수전/거울 미세 스크래치 없는 유막 제거', '타일 줄눈 스케일링 및 항균 피톤치드 코팅'],
-      image: 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1000&q=80',
       tag: '물때·곰팡이 0%',
     },
     {
@@ -133,127 +188,93 @@ export const siteConfig = {
       zone: 'WINDOW ZONE',
       title: '창호·샤시 4면 틈새 흙먼지 복원',
       summary: '외부 매연과 결로 찌든 때로 까맣게 변한 새시를 새집처럼 복원합니다.',
+      beforeImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80',
+      afterImage: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80',
       disassemblyTargets: ['창틀 레일 4면 틈새 완전 세척', '방충망 표면 고압 분진 제거', '실리콘 곰팡이 및 결로 자국'],
       specialMethods: ['샤시 레일 전용 틈새 고압 스팀 브러시', '친환경 유리 세정 유막 제거제', '풍지판 및 방충망 먼지 집진'],
-      image: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1000&q=80',
       tag: '창틀 흙먼지 완벽 제거',
     },
     {
       id: 'storage',
       zone: 'STORAGE & LIGHT ZONE',
       title: '수납장 100% 완전 탈거 & 조명 커버',
-      summary: '겉만 닦고 지나치는 일반 청소와 달리, 레일 속 공사 분진까지 박멸합니다.',
+      summary: '서랍 안쪽 보이지 않는 시멘트 가루와 톱밥 분진까지 완전 흡입합니다.',
+      beforeImage: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=1200&q=80',
+      afterImage: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80',
       disassemblyTargets: ['붙박이장·신발장 모든 서랍 레일 탈거', '천장 조명 등기구 커버 탈거', '에어컨 필터망 분리', '콘센트 및 스위치 플레이트'],
-      specialMethods: ['서랍 안쪽 보이지 않는 시멘트/톱밥 분진 흡입', '등기구 내부 날파리/미세먼지 제거', '친환경 천연 원목 케어제 도포'],
-      image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1000&q=80',
+      specialMethods: ['서랍 안쪽 시멘트/톱밥 분진 집진', '등기구 내부 날파리/미세먼지 제거', '친환경 천연 원목 케어제 도포'],
       tag: '서랍장 100% 완전 분리',
     },
     {
       id: 'floor-air',
       zone: 'FLOOR & AIR ZONE',
       title: '친환경 바닥 습식 세척 & 피톤치드 훈증',
-      summary: '공사 잔여물과 새집증후군 유해물질을 제거하고 맑은 숲속 공기를 채웁니다.',
+      summary: '공사 잔여물을 제거하고 천연 피톤치드로 맑은 숲속 공기를 채웁니다.',
+      beforeImage: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=1200&q=80',
+      afterImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
       disassemblyTargets: ['걸레받이 상단 몰딩 도배풀 제거', '문틀 상하부 미세 분진', '바닥 모서리 실리콘 찌든때'],
-      specialMethods: ['마루 손상 없는 중성 친환경 바닥 습식 클리닝', '헤파필터 집진기를 통한 미세먼지 배출', '천연 편백 피톤치드 공간 훈증 서비스'],
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80',
+      specialMethods: ['중성 친환경 바닥 습식 클리닝', '헤파필터 집진기를 통한 미세먼지 배출', '천연 편백 피톤치드 공간 훈증 서비스'],
       tag: '피톤치드 공간 멸균',
     },
   ] as CleaningManualZone[],
 
   // -----------------------------------------------------------------------
-  // 7. 📸 비포 & 애프터(Before & After) 비교 사진 목록 (한국형 주거 & 오피스 50:50)
+  // 8. 📸 인스타그램 섹션 설정 (노출 개수 1개~6개 자유 조절!)
   // -----------------------------------------------------------------------
-  beforeAfterShowcases: [
-    {
-      id: 'kitchen',
-      category: '주방 딥클리닝',
-      title: '주방 싱크대 & 인덕션 탄자국·기름때 완벽 복원',
-      desc: '인덕션 상판 탄화물과 후드 필터 기름때를 150℃ 고온 스팀과 친환경 연마 기술로 복원',
-      before: 'https://images.unsplash.com/photo-1556909212-d5b604d0c90d?auto=format&fit=crop&w=1400&q=80',
-      after: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1400&q=80',
-    },
-    {
-      id: 'bathroom',
-      category: '욕실 멸균케어',
-      title: '욕실 타일 줄눈 물때·곰팡이 멸균 및 나노 코팅',
-      desc: '환풍기 모터 및 배수구 탈거 세척, 수전 물때 스케일링, 거울 유막 제거 및 항균 코팅',
-      before: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1400&q=80',
-      after: 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=1400&q=80',
-    },
-    {
-      id: 'window',
-      category: '창틀·베란다 케어',
-      title: '창틀 4면 찌든 흙먼지 & 방충망 미세먼지 완벽 제거',
-      desc: '외부 유입 매연과 결로 찌든 때를 고압 스팀과 틈새 전용 브러시로 새시 원형 복원',
-      before: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1400&q=80',
-      after: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1400&q=80',
-    },
-    {
-      id: 'office',
-      category: '사업장 바닥 코팅',
-      title: '사무실 데코타일 묵은 때 박리 & 2회 고광택 왁스',
-      desc: '스크래치와 생활 오염 박리 후 미끄럼 방지 친환경 고광택 수지 왁스 2회 도포',
-      before: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=1400&q=80',
-      after: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1400&q=80',
-    },
-  ],
+  instagram: {
+    // 💡 [사진 노출 개수 조절]: 1을 적으시면 1개만 크게 화보형으로 강조되고,
+    // 2, 3, 4, 6을 적으시면 해당 개수만큼 나란히 격자로 예쁘게 나옵니다!
+    instagramMaxPosts: 1,
+
+    // 인스타그램 사진 및 캡션 목록 (위에서 설정한 개수만큼 화면에 순서대로 나옵니다)
+    posts: [
+      {
+        id: 1,
+        image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80',
+        likes: 342,
+        comments: 28,
+        caption: '오늘도 반포자이 45평 입주청소 완료✨ 채광 들어오는 거실이 반짝입니다. #프리미어클린 #입주청소 #직영마스터',
+      },
+      {
+        id: 2,
+        image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80',
+        likes: 289,
+        comments: 15,
+        caption: '기름때 가득했던 주방 후드가 새것처럼 복원된 순간! 전문가용 고온 스팀의 위력🔥 #주방청소 #스팀세척',
+      },
+      {
+        id: 3,
+        image: 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=800&q=80',
+        likes: 412,
+        comments: 31,
+        caption: '호텔 욕실처럼 뽀송뽀송하게🫧 물때 0% 도전 성공! #욕실청소 #줄눈케어 #피톤치드',
+      },
+      {
+        id: 4,
+        image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
+        likes: 198,
+        comments: 12,
+        caption: '판교 테크노밸리 공유오피스 정기관리 현장. 바닥 광택이 살아나니 업무 환경이 확 달라지네요🏢 #오피스청소',
+      },
+      {
+        id: 5,
+        image: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80',
+        likes: 256,
+        comments: 19,
+        caption: '창틀 흙먼지 한 톨 남기지 않는 꼼꼼함! 100% 한국인 직영팀의 자부심입니다💪 #청소전문가',
+      },
+      {
+        id: 6,
+        image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
+        likes: 387,
+        comments: 24,
+        caption: '고객님의 새 출발을 응원하는 마음으로. 오늘도 정성을 다해 닦아냅니다🙏 #프리미어클린 #고객만족',
+      },
+    ],
+  },
 
   // -----------------------------------------------------------------------
-  // 8. 🧾 고객 영수증 / 검수 체크리스트 인증 후기 카드 (신뢰도 극대화)
-  // -----------------------------------------------------------------------
-  receiptReviews: [
-    {
-      id: 'rr-1',
-      customerName: '김*현 고객님',
-      location: '서울 서초구 반포자이 34평',
-      spaceType: '신축 아파트 입주청소',
-      date: '2026.10.15 시공 완료',
-      checklistSummary: ['걸레받이 안쪽 공사분진 박멸', '서랍장 12개 완전 탈거 검수', '욕실 배수구 유가 멸균 소독', '천연 피톤치드 훈증 완료'],
-      reviewComment: '다른 데서 했을 땐 걸레받이 안쪽이나 등기구는 손도 안 댔는데, 팀장님이 직접 탈거해서 먼지 보여주시고 닦아주시는 모습에 진심으로 감동했습니다.',
-      rating: 5,
-      receiptVerified: true,
-      actualPhotoUrl: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80',
-    },
-    {
-      id: 'rr-2',
-      customerName: '이*진 대표님',
-      location: '성남 분당구 판교IT벤처 65평',
-      spaceType: '오피스 이전 오픈청소',
-      date: '2026.10.10 시공 완료',
-      checklistSummary: ['데코타일 찌든때 완전 박리', '고광택 친환경 왁스 2회 코팅', '유리 파티션 손자국/유막 제거', '야간 작업 정시 완료'],
-      reviewComment: '주말 야간 일정 맞춰서 깔끔하게 마쳐주셨고, 월요일 출근한 임직원들이 새 건물 입주한 것 같다고 감탄했습니다. 세금계산서도 바로 처리해주셨어요.',
-      rating: 5,
-      receiptVerified: true,
-      actualPhotoUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80',
-    },
-    {
-      id: 'rr-3',
-      customerName: '박*서 고객님',
-      location: '경기 하남시 미사강변 28평',
-      spaceType: '구축 아파트 이사청소',
-      date: '2026.10.03 시공 완료',
-      checklistSummary: ['베란다 결로 곰팡이 박멸', '화장실 타일 줄눈 물때 복원', '창틀 4면 고압 스팀 세척', '3일 무상 A/S 보증서 발급'],
-      reviewComment: '전 세입자가 관리를 너무 안 해서 곰팡이가 심했는데 새집처럼 하얗게 복원되었습니다. 한국인 직영팀장님이 설명도 꼼꼼히 해주셔서 안심이었어요.',
-      rating: 5,
-      receiptVerified: true,
-      actualPhotoUrl: 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=600&q=80',
-    },
-    {
-      id: 'rr-4',
-      customerName: '정*우 고객님',
-      location: '인천 연수구 송도더샵 45평',
-      spaceType: '프리미엄 입주 마스터케어',
-      date: '2026.09.28 시공 완료',
-      checklistSummary: ['전등 커버 날파리 분진 흡입', '수납 선반 친환경 원목케어', '주방 상하부장 기름때 스팀', '동행 검수 후 후불 결제'],
-      reviewComment: '사전 해피콜부터 검수까지 대기업 서비스 받는 기분이었습니다. 100% 직영 정규팀이라 그런지 손발이 척척 맞으시네요. 추천합니다.',
-      rating: 5,
-      receiptVerified: true,
-      actualPhotoUrl: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=600&q=80',
-    },
-  ] as ReceiptReviewItem[],
-
-  // -----------------------------------------------------------------------
-  // 9. 고객 검증 실시간 캐러셀 후기 (기본 목록)
+  // 9. ⭐ 실제 고객 시공 후기 캐러셀 데이터
   // -----------------------------------------------------------------------
   reviews: [
     {
@@ -304,7 +325,7 @@ export const siteConfig = {
       afterImage: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80',
       verified: true,
     },
-  ],
+  ] as ReviewItem[],
 
   // -----------------------------------------------------------------------
   // 10. ❓ 자주 묻는 질문 (FAQ 아코디언 데이터)
@@ -349,71 +370,24 @@ export const siteConfig = {
   ] as FaqItem[],
 
   // -----------------------------------------------------------------------
-  // 11. 인스타그램 공식 계정 피드 목업 사진
-  // -----------------------------------------------------------------------
-  instagramPosts: [
-    {
-      id: 1,
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80',
-      likes: 342,
-      comments: 28,
-      caption: '오늘도 반포자이 45평 입주청소 완료✨ 채광 들어오는 거실이 반짝입니다. #프리미어클린 #입주청소',
-    },
-    {
-      id: 2,
-      image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80',
-      likes: 289,
-      comments: 15,
-      caption: '기름때 가득했던 주방 후드가 새것처럼 복원된 순간! 전문가용 고온 스팀의 위력🔥 #주방청소 #스팀세척',
-    },
-    {
-      id: 3,
-      image: 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=600&q=80',
-      likes: 412,
-      comments: 31,
-      caption: '호텔 욕실처럼 뽀송뽀송하게🫧 물때 0% 도전 성공! #욕실청소 #줄눈케어 #피톤치드',
-    },
-    {
-      id: 4,
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80',
-      likes: 198,
-      comments: 12,
-      caption: '판교 테크노밸리 공유오피스 정기관리 현장. 바닥 광택이 살아나니 업무 환경이 확 달라지네요🏢 #오피스청소',
-    },
-    {
-      id: 5,
-      image: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=600&q=80',
-      likes: 256,
-      comments: 19,
-      caption: '창틀 흙먼지 한 톨 남기지 않는 꼼꼼함! 100% 한국인 직영팀의 자부심입니다💪 #청소전문가',
-    },
-    {
-      id: 6,
-      image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=80',
-      likes: 387,
-      comments: 24,
-      caption: '고객님의 새 출발을 응원하는 마음으로. 오늘도 정성을 다해 닦아냅니다🙏 #프리미어클린 #고객만족',
-    },
-  ],
-
-  // -----------------------------------------------------------------------
-  // 12. 🔑 외부 연동 키 설정 (Supabase DB 저장소 및 EmailJS 자동 이메일 푸시)
+  // 11. 🔑 관리자 비밀번호 및 외부 연동 설정
   // -----------------------------------------------------------------------
   integrations: {
-    // 관리자 비밀번호 (후기 등록 모달 팝업 비밀번호, 기본값: '0000')
+    // 💡 [관리자 비밀번호]: 햄버거 메뉴나 푸터의 [관리자 모드]를 누르고
+    // 후기를 등록할 때 입력하는 비밀번호입니다. 원하는 비밀번호로 변경하세요! (기본: '0000')
     adminPassword: process.env.NEXT_PUBLIC_ADMIN_PASSWORD || '0000',
 
-    // Supabase 연동 (후기 사진 및 리뷰 DB 저장소)
+    // Supabase DB 연동 (후기 저장소)
     supabase: {
-      url: process.env.NEXT_PUBLIC_SUPABASE_URL || '',           // 예: 'https://your-project.supabase.co'
-      anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',  // Supabase Anon Public Key
+      url: process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+      anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
     },
 
-    // EmailJS 연동 (고객이 "작업요청 하기" 누르면 사장님 이메일로 자동 푸시 알림)
+    // EmailJS 연동 (고객 견적 신청 시 사장님 이메일 알림 푸시)
     emailjs: {
-      serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',   // 예: 'service_xxxx'
-      templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '', // 예: 'template_xxxx'
-      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '',   // 예: 'user_xxxx'
+      serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+      templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '',
     },
   },
 };

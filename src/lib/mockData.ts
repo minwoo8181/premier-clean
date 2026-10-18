@@ -3,9 +3,7 @@ import { siteConfig } from '@/config/site';
 
 export const INITIAL_REVIEWS = siteConfig.reviews;
 
-export const BEFORE_AFTER_SHOWCASES = siteConfig.beforeAfterShowcases;
-
-export const INSTAGRAM_POSTS = siteConfig.instagramPosts;
+export const INSTAGRAM_POSTS = siteConfig.instagram.posts;
 
 export const SERVICES_DATA: ServiceDetail[] = [
   {

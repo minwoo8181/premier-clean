@@ -124,7 +124,7 @@ export default function ReviewCarousel({ reviews }: ReviewCarouselProps) {
 
               {/* Author & Verification */}
               <div className="flex items-center gap-3 pt-2">
-                <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-700 to-indigo-600 flex items-center justify-center font-black text-white text-base shadow-md shadow-blue-600/20">
+                <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-700 to-indigo-600 flex items-center justify-center font-black text-white text-base shadow-md shadow-blue-600/20 flex-shrink-0">
                   {current.author.slice(0, 1)}
                 </div>
                 <div>

@@ -1,7 +1,7 @@
 'use client';
 
-import { Heart, MessageCircle, BadgeCheck, ExternalLink } from 'lucide-react';
-import { INSTAGRAM_POSTS } from '@/lib/mockData';
+import React from 'react';
+import { Heart, MessageCircle, BadgeCheck, ExternalLink, Sparkles } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 
 function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
@@ -23,16 +23,23 @@ function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
 }
 
 export default function InstagramFeed() {
+  const maxPosts = siteConfig.instagram?.instagramMaxPosts || 1;
+  const allPosts = siteConfig.instagram?.posts || [];
+  const visiblePosts = allPosts.slice(0, Math.min(Math.max(maxPosts, 1), 6));
+
+  const isSinglePost = visiblePosts.length === 1;
+  const singlePost = visiblePosts[0] || allPosts[0];
+
   return (
-    <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-md space-y-6">
+    <div className="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 2xl:p-10 shadow-lg space-y-6">
       
-      {/* Instagram Profile Header Mockup */}
+      {/* Instagram Profile Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-slate-100 gap-4">
         
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-full p-[2.5px] bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex-shrink-0">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full p-[2.5px] bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex-shrink-0">
             <div className="w-full h-full rounded-full bg-white p-0.5">
-              <div className="w-full h-full rounded-full bg-blue-700 flex items-center justify-center text-white font-black text-lg">
+              <div className="w-full h-full rounded-full bg-blue-700 flex items-center justify-center text-white font-black text-base sm:text-lg">
                 PC
               </div>
             </div>
@@ -46,7 +53,7 @@ export default function InstagramFeed() {
               <BadgeCheck className="w-4 h-4 text-blue-600 fill-blue-600 text-white" />
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              {siteConfig.brand.name} 공식 계정 · 생생한 시공 비포&애프터 현장 기록
+              {siteConfig.brand.name} 공식 계정 · 생생한 시공 비포&애프터 현장 스토리
             </p>
             <div className="flex items-center gap-3 text-xs text-slate-600 mt-1 font-semibold">
               <span>게시물 <strong className="text-slate-900 font-bold">1,240</strong></span>
@@ -69,41 +76,98 @@ export default function InstagramFeed() {
 
       </div>
 
-      {/* Grid of 6 Photos */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        {INSTAGRAM_POSTS.map((post) => (
-          <div
-            key={post.id}
-            className="group relative aspect-square rounded-2xl overflow-hidden bg-slate-100 shadow-inner cursor-pointer"
-          >
+      {/* 🖼️ CASE 1: 1개 메인 화보형 강조 뷰 (기본 추천 설정) */}
+      {isSinglePost && singlePost && (
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-slate-50 rounded-2xl p-4 sm:p-6 border border-slate-200/80">
+          <div className="md:col-span-7 relative aspect-[16/10] sm:aspect-[16/9] rounded-xl overflow-hidden shadow-md group">
             <div
-              className="w-full h-full bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
-              style={{ backgroundImage: `url('${post.image}')` }}
+              className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+              style={{ backgroundImage: `url('${singlePost.image}')` }}
             />
-
-            {/* Hover Dark Overlay with stats and caption snippet */}
-            <div className="absolute inset-0 bg-slate-950/75 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-between p-3 text-white">
-              <div className="flex items-center justify-center gap-3 h-full">
-                <div className="flex items-center gap-1 text-xs font-bold">
-                  <Heart className="w-4 h-4 fill-rose-500 text-rose-500" />
-                  <span>{post.likes}</span>
-                </div>
-                <div className="flex items-center gap-1 text-xs font-bold">
-                  <MessageCircle className="w-4 h-4 fill-white text-white" />
-                  <span>{post.comments}</span>
-                </div>
-              </div>
-              <p className="text-[10px] text-slate-200 line-clamp-2 leading-tight">
-                {post.caption}
-              </p>
+            <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[11px] font-bold px-2.5 py-1 rounded-lg">
+              최신 현장 하이라이트
             </div>
           </div>
-        ))}
-      </div>
 
+          <div className="md:col-span-5 space-y-4">
+            <div className="flex items-center gap-3 text-xs font-bold text-slate-600">
+              <span className="flex items-center gap-1 text-rose-500">
+                <Heart className="w-4 h-4 fill-rose-500" />
+                좋아요 {singlePost.likes}개
+              </span>
+              <span className="flex items-center gap-1 text-slate-600">
+                <MessageCircle className="w-4 h-4" />
+                댓글 {singlePost.comments}개
+              </span>
+            </div>
+
+            <p className="text-sm text-slate-800 leading-relaxed font-medium break-keep">
+              &ldquo;{singlePost.caption}&rdquo;
+            </p>
+
+            <div className="pt-2">
+              <a
+                href={siteConfig.contact.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 hover:text-blue-800 transition-colors"
+              >
+                <span>인스타그램에서 더 많은 현장 사진 보기</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 🖼️ CASE 2: 2개~6개 멀티 그리드 뷰 (siteConfig에서 숫자 2~6 설정 시 자동 작동) */}
+      {!isSinglePost && (
+        <div
+          className={`grid gap-3 sm:gap-4 ${
+            visiblePosts.length === 2
+              ? 'grid-cols-1 sm:grid-cols-2'
+              : visiblePosts.length === 3
+              ? 'grid-cols-1 sm:grid-cols-3'
+              : visiblePosts.length === 4
+              ? 'grid-cols-2 sm:grid-cols-4'
+              : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6'
+          }`}
+        >
+          {visiblePosts.map((post) => (
+            <div
+              key={post.id}
+              className="group relative aspect-square rounded-2xl overflow-hidden bg-slate-100 shadow-inner cursor-pointer"
+            >
+              <div
+                className="w-full h-full bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
+                style={{ backgroundImage: `url('${post.image}')` }}
+              />
+
+              {/* Hover Dark Overlay with stats and caption snippet */}
+              <div className="absolute inset-0 bg-slate-950/75 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-between p-3 text-white">
+                <div className="flex items-center justify-center gap-3 h-full">
+                  <div className="flex items-center gap-1 text-xs font-bold">
+                    <Heart className="w-4 h-4 fill-rose-500 text-rose-500" />
+                    <span>{post.likes}</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-xs font-bold">
+                    <MessageCircle className="w-4 h-4 fill-white text-white" />
+                    <span>{post.comments}</span>
+                  </div>
+                </div>
+                <p className="text-[10px] text-slate-200 line-clamp-2 leading-tight">
+                  {post.caption}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Bottom Subtitle / Tag */}
       <div className="text-center pt-2">
-        <p className="text-xs text-slate-400">
-          #프리미어클린 #입주청소 #이사청소 #사무실청소 #청소의기준 태그로 고객님들의 실시간 후기를 확인해보세요.
+        <p className="text-[11px] text-slate-400 font-semibold">
+          #프리미어클린 #입주청소 #이사청소 #사무실청소 #청소의기준 태그로 고객님들의 실시간 후기를 확인해 보세요.
         </p>
       </div>
 

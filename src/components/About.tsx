@@ -1,156 +1,203 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Users2, ThumbsUp, Leaf, RotateCcw, ShieldCheck, CheckCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Users2, ThumbsUp, Leaf, RotateCcw, ShieldCheck, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { siteConfig } from '@/config/site';
 
-const USPS = [
-  {
-    icon: Users2,
-    badge: '신뢰도 UP',
-    title: '100% 한국인 직영팀',
-    subtitle: '하도급·외주 프리랜서 제로',
-    description:
-      '외주나 일용직 인력에 위탁하지 않습니다. 본사 직영 교육을 이수한 한국인 베테랑 팀장과 정규 크루가 직접 시공합니다.',
-    gradient: 'from-blue-600 to-indigo-600',
-    border: 'border-blue-100 hover:border-blue-300',
-  },
-  {
-    icon: ThumbsUp,
-    badge: '재이용률 1위',
-    title: '고객 만족도 99%',
-    subtitle: '압도적인 실사용자 평가',
-    description:
-      '12,000건 이상의 누적 시공 데이터와 꼼꼼한 체크리스트 기반의 검수 프로세스로 입주·이사 고객님들께 최상의 청결 만족을 선사합니다.',
-    gradient: 'from-indigo-600 to-sky-600',
-    border: 'border-indigo-100 hover:border-indigo-300',
-  },
-  {
-    icon: Leaf,
-    badge: '프리미엄 원칙',
-    title: '친환경 생분해 세제 & 전문 장비',
-    subtitle: '영유아·반려동물 안심 케어',
-    description:
-      '저가 락스나 독성 화학약품을 일체 배제합니다. 산업용 고온 스팀 장비와 천연 생분해 친환경 세제만을 고집하여 냄새와 잔여물 없는 청정을 약속합니다.',
-    gradient: 'from-emerald-600 to-teal-600',
-    border: 'border-emerald-100 hover:border-emerald-300',
-  },
-  {
-    icon: RotateCcw,
-    badge: '책임 보장제',
-    title: '100% 무료 A/S 보장 시스템',
-    subtitle: '불만족 시 무상 재방문 케어',
-    description:
-      '시공 후 미흡한 점이 발견되면 청소일 기준 3일 이내 신속하게 무상 재방문하여 완벽히 재케어해 드립니다. 끝까지 책임지는 프리미어 솔루션입니다.',
-    gradient: 'from-blue-700 to-blue-500',
-    border: 'border-sky-100 hover:border-sky-300',
-  },
-];
+const ICON_MAP = {
+  Users2,
+  ThumbsUp,
+  Leaf,
+  RotateCcw,
+};
 
 export default function About() {
+  const values = siteConfig.coreValues;
+  const [activeTab, setActiveTab] = useState(0);
+
+  const activeValue = values[activeTab] || values[0];
+  const ActiveIcon = ICON_MAP[activeValue.iconName as keyof typeof ICON_MAP] || Users2;
+
+  const handlePrev = () => {
+    setActiveTab((prev) => (prev === 0 ? values.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setActiveTab((prev) => (prev === values.length - 1 ? 0 : prev + 1));
+  };
+
   return (
-    <section id="about" className="py-20 lg:py-28 bg-slate-50 relative overflow-hidden">
+    <section id="about" className="py-16 lg:py-24 2xl:py-32 bg-slate-50 relative overflow-hidden">
       {/* Decorative blurred background lights */}
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-blue-100/60 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-0 w-96 h-96 bg-indigo-100/60 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 relative z-10">
+      <div className="max-w-7xl 2xl:max-w-[1680px] 3xl:max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 relative z-10 space-y-10 lg:space-y-14">
         
-        {/* Section Header with Natural Korean Break-Keep */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/80 text-blue-700 text-xs font-bold tracking-wide uppercase">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100/80 text-blue-700 text-xs font-black tracking-wide uppercase">
             <ShieldCheck className="w-4 h-4" />
             <span>PREMIER CLEAN CORE VALUES</span>
           </div>
           
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight break-keep">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight break-keep">
             프리미어 클린이 타협하지 않는{' '}
             <span className="text-blue-700 inline-block">4가지 약속</span>
           </h2>
 
-          <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed break-keep max-w-2xl mx-auto">
-            비용만 깎고 겉만 훑는 일반 청소와 비교하지 말아주세요. 기술력과 정직함으로 증명하는 프리미어 클린만의 4대 핵심 가치입니다.
+          <p className="text-xs sm:text-base text-slate-600 font-normal leading-relaxed break-keep max-w-2xl mx-auto">
+            비용만 깎고 겉만 훑는 일반 청소와 비교하지 말아주세요.
+            기술력과 정직함으로 증명하는 4대 핵심 원칙입니다.
           </p>
         </div>
 
-        {/* 4 USP Grid (Mobile: 1 col, PC: 2~4 cols) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {USPS.map((usp, idx) => {
-            const Icon = usp.icon;
+        {/* 📱 Mobile View: Button-Tab Switcher (스크롤 단축 & 원터치 전환) */}
+        <div className="block lg:hidden space-y-5">
+          
+          {/* Tab Button Bar */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {values.map((val, idx) => {
+              const TabIcon = ICON_MAP[val.iconName as keyof typeof ICON_MAP] || Users2;
+              const isActive = idx === activeTab;
+
+              return (
+                <button
+                  key={val.id}
+                  onClick={() => setActiveTab(idx)}
+                  className={`flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl text-xs font-black transition-all cursor-pointer ${
+                    isActive
+                      ? 'bg-blue-700 text-white shadow-md shadow-blue-700/25 scale-[1.02]'
+                      : 'bg-white text-slate-600 border border-slate-200/80 hover:bg-slate-100'
+                  }`}
+                >
+                  <TabIcon className={`w-3.5 h-3.5 ${isActive ? 'text-sky-200' : 'text-blue-600'}`} />
+                  <span className="truncate">{val.title.replace('100%', '').trim()}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Card Body with Spring Animation (Compact height!) */}
+          <div className="relative">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeValue.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                className={`bg-white rounded-3xl p-6 sm:p-7 border ${activeValue.border} shadow-lg space-y-4`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${activeValue.gradient} flex items-center justify-center text-white shadow-md shadow-blue-500/20`}
+                    >
+                      <ActiveIcon className="w-6 h-6 stroke-[2.2]" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                        {activeValue.badge}
+                      </span>
+                      <h3 className="text-lg font-black text-slate-900 mt-0.5">
+                        {activeValue.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Left / Right mini navigation buttons */}
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={handlePrev}
+                      className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 cursor-pointer active:scale-95"
+                      aria-label="이전 약속"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={handleNext}
+                      className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 cursor-pointer active:scale-95"
+                      aria-label="다음 약속"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                <p className="text-xs font-bold text-blue-600">
+                  {activeValue.subtitle}
+                </p>
+
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal break-keep">
+                  {activeValue.description}
+                </p>
+
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-500">
+                  <span className="flex items-center gap-1.5 text-blue-700 font-bold">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                    <span>{activeValue.highlight}</span>
+                  </span>
+                  <span className="text-[11px] text-slate-400 font-medium">
+                    {activeTab + 1} / {values.length}
+                  </span>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+        </div>
+
+        {/* 💻 Desktop View: 4-Column Side-by-Side Grid (1줄로 시원하게 배치) */}
+        <div className="hidden lg:grid lg:grid-cols-4 gap-6 2xl:gap-8">
+          {values.map((item, idx) => {
+            const Icon = ICON_MAP[item.iconName as keyof typeof ICON_MAP] || Users2;
+
             return (
               <motion.div
-                key={usp.title}
-                initial={{ opacity: 0, y: 30 }}
+                key={item.id}
+                initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                className={`group bg-white rounded-3xl p-7 border ${usp.border} shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden`}
+                className={`group bg-white rounded-3xl p-7 border ${item.border} shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between`}
               >
-                {/* Top Badge */}
                 <div className="space-y-5">
                   <div className="flex items-center justify-between">
                     <div
-                      className={`w-14 h-14 rounded-2xl bg-gradient-to-tr ${usp.gradient} flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300`}
+                      className={`w-13 h-13 rounded-2xl bg-gradient-to-tr ${item.gradient} flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300`}
                     >
-                      <Icon className="w-7 h-7" />
+                      <Icon className="w-6 h-6 stroke-[2.2]" />
                     </div>
-                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                      {usp.badge}
+                    <span className="text-[11px] font-black px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                      {item.badge}
                     </span>
                   </div>
 
                   <div>
-                    <h3 className="text-xl font-extrabold text-slate-900 group-hover:text-blue-700 transition-colors break-keep">
-                      {usp.title}
+                    <h3 className="text-lg 2xl:text-xl font-black text-slate-900 group-hover:text-blue-700 transition-colors break-keep">
+                      {item.title}
                     </h3>
                     <p className="text-xs font-bold text-blue-600 mt-1 break-keep">
-                      {usp.subtitle}
+                      {item.subtitle}
                     </p>
                   </div>
 
-                  <p className="text-sm text-slate-600 leading-relaxed font-normal break-keep">
-                    {usp.description}
+                  <p className="text-xs 2xl:text-sm text-slate-600 leading-relaxed font-normal break-keep">
+                    {item.description}
                   </p>
                 </div>
 
-                {/* Bottom mini indicator */}
-                <div className="pt-6 mt-6 border-t border-slate-100 flex items-center gap-2 text-xs font-semibold text-slate-500 group-hover:text-blue-600 transition-colors">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
-                  <span>100% 직영 시스템</span>
+                <div className="pt-5 mt-6 border-t border-slate-100 flex items-center gap-1.5 text-xs font-bold text-slate-500 group-hover:text-blue-700 transition-colors">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                  <span>{item.highlight}</span>
                 </div>
               </motion.div>
             );
           })}
         </div>
-
-        {/* Clean Process Banner */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-16 bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6"
-        >
-          <div className="space-y-2 text-center md:text-left">
-            <span className="text-xs font-bold uppercase tracking-wider text-sky-300">
-              안심 무상 A/S 보증
-            </span>
-            <h4 className="text-xl sm:text-2xl font-bold break-keep">
-              외주 없는 본사 직영팀의 꼼꼼한 마스터 클리닝을 경험해 보세요
-            </h4>
-            <p className="text-xs sm:text-sm text-slate-300 break-keep">
-              상담부터 현장 견적, 시공 후 100% 무료 A/S 보장까지 전담 매니저가 끝까지 책임집니다.
-            </p>
-          </div>
-
-          <a
-            href="#contact"
-            className="flex-shrink-0 bg-white hover:bg-slate-100 text-blue-900 font-extrabold text-sm px-6 py-3.5 rounded-xl shadow-md transition-all active:scale-95"
-          >
-            지금 무료 견적 상담받기
-          </a>
-        </motion.div>
 
       </div>
     </section>

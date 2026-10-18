@@ -47,3 +47,19 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
+
+/* 4K & 32-inch Ultra-wide Responsive Scaling */
+@media (min-width: 1920px) {
+  .max-w-7xl {
+    max-width: 1720px !important;
+  }
+}
+
+@media (min-width: 2560px) {
+  .max-w-7xl {
+    max-width: 1980px !important;
+  }
+  body {
+    font-size: 17px;
+  }
+}
