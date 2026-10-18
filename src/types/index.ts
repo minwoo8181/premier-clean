@@ -93,3 +93,13 @@ export interface InstagramPost {
   postUrl?: string;
 }
 
+export type SectionId =
+  | 'hero'
+  | 'trustBadges'
+  | 'about'
+  | 'process'
+  | 'services'
+  | 'reviews'
+  | 'faq'
+  | 'contact';
+
