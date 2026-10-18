@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { X, Lock, CheckCircle, Upload, Star, AlertCircle, Camera, Image as ImageIcon, Sparkles } from 'lucide-react';
+import { X, Lock, CheckCircle, Upload, Star, AlertCircle, Camera, Sparkles } from 'lucide-react';
 import { verifyAdminPassword, createReview } from '@/lib/supabase';
 import { ReviewItem } from '@/types';
 
@@ -151,22 +151,22 @@ export default function AdminReviewModal({
 
       {/* Modal Dialog */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 15 }}
+        initial={{ opacity: 0, scale: 0.95, y: 12 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 15 }}
-        className="relative z-10 w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden max-h-[90vh] flex flex-col"
+        exit={{ opacity: 0, scale: 0.95, y: 12 }}
+        className="relative z-10 w-full max-w-lg bg-white rounded-3xl shadow-ambient-lg border border-slate-200 overflow-hidden max-h-[90vh] flex flex-col"
       >
         {/* Header */}
         <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between flex-shrink-0">
           <div className="flex items-center gap-2">
-            <Lock className="w-5 h-5 text-blue-400" />
-            <span className="font-bold text-sm">관리자 후기 등록 (Light Admin)</span>
+            <Lock className="w-5 h-5 text-blue-400" strokeWidth={1.75} />
+            <span className="font-semibold text-sm">관리자 후기 등록 (Light Admin)</span>
           </div>
           <button
             onClick={onClose}
             className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5" strokeWidth={1.75} />
           </button>
         </div>
 
@@ -176,13 +176,13 @@ export default function AdminReviewModal({
             <form onSubmit={handlePasswordSubmit} className="space-y-4">
               <div className="text-center space-y-2 py-4">
                 <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-700 mx-auto flex items-center justify-center shadow-inner">
-                  <Lock className="w-7 h-7" />
+                  <Lock className="w-7 h-7" strokeWidth={1.75} />
                 </div>
                 <h3 className="text-lg font-bold text-slate-900">
                   관리자 비밀번호를 입력해 주세요
                 </h3>
-                <p className="text-xs text-slate-500">
-                  기본 비밀번호는 <code className="bg-slate-100 text-blue-600 px-1.5 py-0.5 rounded font-mono font-bold">0000</code> 입니다. (site.ts에서 변경 가능)
+                <p className="text-xs text-slate-500 font-normal">
+                  기본 비밀번호는 <code className="bg-slate-100 text-blue-600 px-1.5 py-0.5 rounded font-mono font-semibold">0000</code> 입니다. (site.ts에서 변경 가능)
                 </p>
               </div>
 
@@ -198,7 +198,7 @@ export default function AdminReviewModal({
                 />
                 {passwordError && (
                   <div className="flex items-center gap-1.5 text-xs text-rose-500 mt-2 justify-center font-medium">
-                    <AlertCircle className="w-4 h-4" />
+                    <AlertCircle className="w-4 h-4" strokeWidth={1.75} />
                     <span>{passwordError}</span>
                   </div>
                 )}
@@ -206,7 +206,7 @@ export default function AdminReviewModal({
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-sm shadow-md transition-all active:scale-95 cursor-pointer"
+                className="w-full py-3 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-semibold text-sm shadow-ambient-sm transition-all active:scale-95 cursor-pointer"
               >
                 비밀번호 확인
               </button>
@@ -217,24 +217,24 @@ export default function AdminReviewModal({
               {successMessage ? (
                 <div className="py-10 text-center space-y-3">
                   <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center">
-                    <CheckCircle className="w-8 h-8" />
+                    <CheckCircle className="w-8 h-8" strokeWidth={1.75} />
                   </div>
                   <h4 className="text-lg font-bold text-slate-900">{successMessage}</h4>
-                  <p className="text-xs text-slate-500">메인 화면 슬라이드에 최신 1순위로 즉시 노출됩니다.</p>
+                  <p className="text-xs text-slate-500 font-normal">메인 화면 슬라이드에 최신 1순위로 즉시 노출됩니다.</p>
                 </div>
               ) : (
                 <>
                   <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-                    <span className="text-xs font-bold text-blue-600 flex items-center gap-1">
-                      <Sparkles className="w-3.5 h-3.5" />
+                    <span className="text-xs font-semibold text-blue-700 flex items-center gap-1">
+                      <Sparkles className="w-3.5 h-3.5" strokeWidth={1.75} />
                       <span>인증 완료: 최신 10건 슬라이드 자동 반영</span>
                     </span>
-                    <span className="text-[11px] text-slate-400">DB 영구 저장</span>
+                    <span className="text-[11px] text-slate-400 font-normal">DB 영구 저장</span>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1">고객명</label>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">고객명</label>
                       <input
                         type="text"
                         value={author}
@@ -245,7 +245,7 @@ export default function AdminReviewModal({
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1">시공 장소 및 평수</label>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">시공 장소 및 평수</label>
                       <input
                         type="text"
                         value={location}
@@ -258,11 +258,11 @@ export default function AdminReviewModal({
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1">서비스 유형</label>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">서비스 유형</label>
                       <select
                         value={serviceType}
                         onChange={(e) => setServiceType(e.target.value)}
-                        className="w-full text-xs px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+                        className="w-full text-xs px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white font-medium"
                       >
                         <option value="신축 입주청소">신축 입주청소</option>
                         <option value="구축 이사청소">구축 이사청소</option>
@@ -273,7 +273,7 @@ export default function AdminReviewModal({
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1">만족도 평점</label>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">만족도 평점</label>
                       <div className="flex items-center gap-1 pt-1">
                         {[1, 2, 3, 4, 5].map((s) => (
                           <button
@@ -288,6 +288,7 @@ export default function AdminReviewModal({
                                   ? 'fill-amber-400 text-amber-400'
                                   : 'text-slate-300'
                               }`}
+                              strokeWidth={1.75}
                             />
                           </button>
                         ))}
@@ -298,11 +299,11 @@ export default function AdminReviewModal({
                   {/* 📸 1. 시공 후 현장 사진 (After) - 파일 업로드 & 자동 리사이징 */}
                   <div className="space-y-2 p-3 bg-slate-50 rounded-xl border border-slate-200">
                     <div className="flex items-center justify-between">
-                      <label className="block text-xs font-bold text-slate-800">
+                      <label className="block text-xs font-semibold text-slate-800">
                         📸 시공 후 현장 사진 (After - 모바일/PC 노출)
                       </label>
                       {isResizing && (
-                        <span className="text-[10px] text-blue-600 font-bold animate-pulse">
+                        <span className="text-[10px] text-blue-700 font-semibold animate-pulse">
                           자동 리사이징 압축 중...
                         </span>
                       )}
@@ -319,7 +320,7 @@ export default function AdminReviewModal({
                           />
                         </div>
                         <div className="text-[11px] text-slate-500">
-                          <span className="text-emerald-600 font-bold block">✓ 사진 준비 완료 (모바일 최적화)</span>
+                          <span className="text-emerald-700 font-semibold block">✓ 사진 준비 완료 (모바일 최적화)</span>
                           <span className="text-slate-400">대용량 사진도 800px로 자동 리사이징됩니다.</span>
                         </div>
                       </div>
@@ -327,8 +328,8 @@ export default function AdminReviewModal({
 
                     {/* File Upload Button */}
                     <div className="flex items-center gap-2">
-                      <label className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold cursor-pointer transition-all active:scale-95 shadow-sm">
-                        <Camera className="w-3.5 h-3.5" />
+                      <label className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-xs font-semibold cursor-pointer transition-all active:scale-95 shadow-sm">
+                        <Camera className="w-3.5 h-3.5" strokeWidth={1.75} />
                         <span>사진 파일 선택 (또는 촬영)</span>
                         <input
                           ref={fileInputRef}
@@ -351,7 +352,7 @@ export default function AdminReviewModal({
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">고객 후기 내용</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">고객 후기 내용</label>
                     <textarea
                       value={content}
                       onChange={(e) => setContent(e.target.value)}
@@ -366,9 +367,9 @@ export default function AdminReviewModal({
                     <button
                       type="submit"
                       disabled={isSubmitting || isResizing}
-                      className="w-full py-3 rounded-xl bg-blue-700 hover:bg-blue-800 disabled:bg-slate-300 text-white font-bold text-sm shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+                      className="w-full py-3 rounded-xl bg-blue-700 hover:bg-blue-800 disabled:bg-slate-300 text-white font-semibold text-sm shadow-ambient-sm transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
                     >
-                      <Upload className="w-4 h-4" />
+                      <Upload className="w-4 h-4" strokeWidth={1.75} />
                       <span>{isSubmitting ? '업로드 등록 중...' : '작업 후기 등록하기'}</span>
                     </button>
                   </div>

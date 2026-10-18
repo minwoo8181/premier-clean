@@ -13,7 +13,7 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen flex flex-col bg-white text-slate-900 pb-16 md:pb-0">
+    <div className="relative min-h-screen flex flex-col bg-white text-slate-900 pb-28 md:pb-0">
       {/* Fixed Sticky Header */}
       <Header />
 

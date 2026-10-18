@@ -37,7 +37,7 @@ export interface TrustBadgeItem {
   title: string;
   subtitle: string;
   description: string;
-  iconName: 'ShieldCheck' | 'CreditCard' | 'RotateCcw' | 'Coffee';
+  iconName: 'ShieldCheck' | 'CreditCard' | 'RotateCcw' | 'Coffee' | 'Receipt' | 'HandCoins' | 'CircleOff' | 'BadgePercent';
 }
 
 export interface CoreValueItem {

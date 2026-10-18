@@ -26,7 +26,7 @@ export const siteConfig = {
     name: '프리미어 클린',
     englishName: 'PREMIER CLEAN',
     slogan: '주거부터 비즈니스 공간까지, 프리미어 클린이 기준을 만듭니다.',
-    subSlogan: '청소는 아무나 하는 게 아닙니다. 청소도 정밀한 기술입니다.',
+    subSlogan: '머무는 사람의 호흡까지 생각합니다. 청소는 단순 노동이 아닌 정밀한 기술입니다.',
     description: '100% 한국인 직영 마스터팀 · 전문가용 안심 스팀 장비 · 고객만족도 99% · 100% 무료 A/S 보장',
   },
 
@@ -41,7 +41,7 @@ export const siteConfig = {
     kakaoChatUrl: process.env.NEXT_PUBLIC_KAKAO_CHAT_URL || 'https://open.kakao.com', // 카카오톡 1:1 상담 링크
     instagramUrl: 'https://instagram.com',                                            // 공식 인스타그램 링크
     instagramHandle: 'premierclean_official',                                         // 인스타그램 계정 아이디
-    formSubtitle: '원하시는 공간과 일정에 맞춰 최적의 맞춤 견적을 신속히 1:1 상담 안내해 드립니다.', // 견적 폼 서브타이틀
+    formSubtitle: '원하시는 공간과 일정에 맞춰 최적의 맞춤 견적을 1분 만에 신속히 1:1 안내해 드립니다.', // 견적 폼 서브타이틀
   },
 
   // -----------------------------------------------------------------------
@@ -86,15 +86,15 @@ export const siteConfig = {
       id: 'postpay',
       badge: '선입금 0원',
       title: '100% 검수 후 안심 후불제',
-      subtitle: '고객 만족 시에만 최종 결제',
+      subtitle: '직접 눈으로 확인하시기 전까진 결제받지 않습니다',
       description: '선금을 과도하게 요구하거나 예약금을 강요하지 않습니다. 고객님이 현장에 직접 방문하여 1:1 동행 검수를 마친 후 만족하셨을 때 결제합니다.',
-      iconName: 'CreditCard',
+      iconName: 'HandCoins',
     },
     {
       id: 'warranty',
       badge: '끝까지 책임',
       title: '3일 이내 100% 무상 A/S',
-      subtitle: '미흡한 곳 발견 시 무상 재방문',
+      subtitle: '미흡한 곳 발견 시 무상 재방문 케어',
       description: '입주 후 미처 발견하지 못했던 미흡한 부분이 있다면 청소 완료일 기준 3일 이내 신청 시 담당 팀장이 즉시 무상 재방문 케어합니다.',
       iconName: 'RotateCcw',
     },
@@ -102,9 +102,9 @@ export const siteConfig = {
       id: 'zero-extra',
       badge: '투명 정찰제',
       title: '식사비·수고비 일체 요구 0원',
-      subtitle: '현장 부당 추가금 강요 절대 금지',
+      subtitle: '견적서 금액 외 부당 추가금 1원도 금지',
       description: '현장에서 기사 식대나 음료수, 부당한 추가 작업비를 절대 요구하지 않습니다. 사전에 확정된 견적 금액 그대로 정직하게 시공합니다.',
-      iconName: 'Coffee',
+      iconName: 'Receipt',
     },
   ] as TrustBadgeItem[],
 
