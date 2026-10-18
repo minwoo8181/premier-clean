@@ -7,8 +7,10 @@ import { siteConfig } from '@/config/site';
 
 const NAV_LINKS = [
   { name: '회사소개', href: '#about' },
+  { name: '구역별 정밀공정', href: '#process' },
   { name: '서비스 안내', href: '#services' },
   { name: '작업 후기', href: '#reviews' },
+  { name: '자주 묻는 질문', href: '#faq' },
   { name: '무료 견적문의', href: '#contact' },
 ];
 

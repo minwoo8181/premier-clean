@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Sparkles, Edit3 } from 'lucide-react';
 import BeforeAfterSlider from './BeforeAfterSlider';
 import ReviewCarousel from './ReviewCarousel';
+import ReceiptReviewGrid from './ReceiptReviewGrid';
 import InstagramFeed from './InstagramFeed';
 import AdminReviewModal from './AdminReviewModal';
 import { fetchReviews } from '@/lib/supabase';
@@ -37,7 +38,7 @@ export default function ReviewsSection() {
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>REAL TRANSFORMATIONS</span>
+              <span>REAL TRANSFORMATIONS & REVIEWS</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight break-keep">
               결과로 증명하는{' '}
@@ -73,12 +74,17 @@ export default function ReviewsSection() {
           <BeforeAfterSlider />
         </div>
 
-        {/* 2. Framer Motion Auto-rolling Review Carousel */}
-        <div className="space-y-6 pt-4">
+        {/* 2. Luminous Glassmorphic Review Carousel */}
+        <div className="space-y-6 pt-2">
           <ReviewCarousel reviews={reviews} />
         </div>
 
-        {/* 3. Instagram Feed UI Mockup */}
+        {/* 3. Real Customer Receipt & Inspection Checklist Grid (신뢰도 핵심) */}
+        <div className="space-y-6 pt-4">
+          <ReceiptReviewGrid />
+        </div>
+
+        {/* 4. Instagram Feed UI Mockup */}
         <div className="space-y-6 pt-4">
           <div className="text-center md:text-left">
             <h3 className="text-xl sm:text-2xl font-black text-slate-900">

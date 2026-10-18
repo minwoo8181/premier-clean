@@ -20,7 +20,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed max-w-sm break-keep">
-              {siteConfig.brand.name}은 100% 한국인 직영 마스터팀으로 운영되는 프리미엄 청소 전문 기업입니다. 타협 없는 시공과 독일 명품 친환경 기술로 새로운 주거·업무 환경의 기준을 만듭니다.
+              {siteConfig.brand.name}은 100% 한국인 직영 마스터팀으로 운영되는 프리미엄 청소 전문 기업입니다. 타협 없는 시공과 공인된 친환경 기술로 새로운 주거·업무 환경의 기준을 만듭니다.
             </p>
             <div className="flex items-center gap-2 text-emerald-400 font-semibold text-xs">
               <ShieldCheck className="w-4 h-4 flex-shrink-0" />
@@ -36,13 +36,19 @@ export default function Footer() {
                 <a href="#about" className="hover:text-white transition-colors">회사소개 및 핵심가치</a>
               </li>
               <li>
+                <a href="#process" className="hover:text-white transition-colors">구역별 완전 탈거공정</a>
+              </li>
+              <li>
                 <a href="#services" className="hover:text-white transition-colors">홈클리닝 & 사업장 서비스</a>
               </li>
               <li>
                 <a href="#reviews" className="hover:text-white transition-colors">비포 & 애프터 작업후기</a>
               </li>
               <li>
-                <a href="#contact" className="hover:text-white transition-colors">실시간 무료견적 신청</a>
+                <a href="#faq" className="hover:text-white transition-colors">자주 묻는 질문 (FAQ)</a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-white transition-colors">1:1 맞춤 견적 신청</a>
               </li>
             </ul>
           </div>

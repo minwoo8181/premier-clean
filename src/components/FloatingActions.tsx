@@ -22,7 +22,7 @@ export default function FloatingActions() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 pointer-events-none">
+    <div className="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-30 flex flex-col items-end gap-3 pointer-events-none">
       
       {/* Scroll To Top Button */}
       <AnimatePresence>
@@ -40,11 +40,11 @@ export default function FloatingActions() {
         )}
       </AnimatePresence>
 
-      {/* KakaoTalk Floating Button with Pulse Effect */}
-      <div className="relative group pointer-events-auto">
+      {/* KakaoTalk Floating Button with Pulse Effect (Desktop Only - Mobile has MobileStickyBar) */}
+      <div className="hidden md:block relative group pointer-events-auto">
         
         {/* Tooltip bubble on desktop */}
-        <div className="absolute right-full top-1/2 -translate-y-1/2 mr-3 px-3 py-1.5 bg-slate-900/90 text-white text-xs font-bold rounded-xl shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden sm:block">
+        <div className="absolute right-full top-1/2 -translate-y-1/2 mr-3 px-3 py-1.5 bg-slate-900/90 text-white text-xs font-bold rounded-xl shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
           실시간 1:1 카톡 상담
           <div className="absolute top-1/2 -right-1 -translate-y-1/2 border-4 border-transparent border-l-slate-900/90" />
         </div>

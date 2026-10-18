@@ -173,7 +173,7 @@ export default function Contact() {
                   </span>
                   <div>
                     <strong className="text-slate-800">시공 및 현장 동행 검수</strong>
-                    <p className="text-[11px] text-slate-500">독일 친환경 장비 시공 후 고객 직접 확인</p>
+                    <p className="text-[11px] text-slate-500">전문가용 안심 장비 시공 후 고객 직접 확인</p>
                   </div>
                 </div>
               </div>

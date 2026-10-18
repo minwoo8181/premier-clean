@@ -21,17 +21,17 @@ const USPS = [
     title: '고객 만족도 99%',
     subtitle: '압도적인 실사용자 평가',
     description:
-      '2,800건 이상의 누적 시공 데이터와 꼼꼼한 체크리스트 기반의 검수 프로세스로 입주·이사 고객님들께 최상의 청결 만족을 선사합니다.',
+      '12,000건 이상의 누적 시공 데이터와 꼼꼼한 체크리스트 기반의 검수 프로세스로 입주·이사 고객님들께 최상의 청결 만족을 선사합니다.',
     gradient: 'from-indigo-600 to-sky-600',
     border: 'border-indigo-100 hover:border-indigo-300',
   },
   {
     icon: Leaf,
     badge: '프리미엄 원칙',
-    title: '평균 100만 원 상당 친환경 용품',
+    title: '친환경 생분해 세제 & 전문 장비',
     subtitle: '영유아·반려동물 안심 케어',
     description:
-      '저가 락스나 독성 화학약품을 일체 배제합니다. 명품 프리미엄 장비와 천연 생분해 친환경 세제만을 고집하여 냄새와 잔여물 없는 청정을 약속합니다.',
+      '저가 락스나 독성 화학약품을 일체 배제합니다. 산업용 고온 스팀 장비와 천연 생분해 친환경 세제만을 고집하여 냄새와 잔여물 없는 청정을 약속합니다.',
     gradient: 'from-emerald-600 to-teal-600',
     border: 'border-emerald-100 hover:border-emerald-300',
   },
