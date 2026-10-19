@@ -25,11 +25,11 @@ export default function Services() {
   const commercialService = SERVICES_DATA.find((s) => s.category === 'commercial') || SERVICES_DATA[1];
 
   return (
-    <section id="services" className="py-20 lg:py-28 2xl:py-36 bg-white relative">
+    <section id="services" className="pt-8 sm:pt-12 lg:pt-14 pb-20 lg:pb-28 2xl:pb-36 bg-white relative">
       <div className="max-w-7xl 2xl:max-w-[1680px] 3xl:max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12">
         
         {/* Section Header with Proper Korean Typography */}
-        <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold tracking-wider uppercase border border-blue-100">
             <Sparkles className="w-3.5 h-3.5 text-blue-600" strokeWidth={1.75} />
             <span>50:50 DUAL MASTER CARE</span>

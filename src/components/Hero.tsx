@@ -14,7 +14,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 overflow-hidden bg-slate-50">
+    <section className="relative flex items-center justify-center pt-20 sm:pt-24 pb-6 md:pb-8 overflow-hidden bg-slate-50">
       {/* Bright, Sunlit Modern Clean Interior Background */}
       <div className="absolute inset-0 z-0">
         <div
@@ -29,7 +29,7 @@ export default function Hero() {
         <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-100/70 rounded-full blur-3xl pointer-events-none" />
       </div>
 
-      <div className="relative z-10 max-w-7xl 2xl:max-w-[1680px] 3xl:max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 3xl:px-16 w-full py-10 md:py-20 2xl:py-28 3xl:py-36">
+      <div className="relative z-10 max-w-7xl 2xl:max-w-[1680px] 3xl:max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 3xl:px-16 w-full pt-6 pb-6 md:pt-10 md:pb-8 lg:pt-12 lg:pb-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           {/* Main Content (Left 7-8 Cols) */}
