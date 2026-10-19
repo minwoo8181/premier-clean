@@ -24,25 +24,25 @@ export const siteConfig = {
   // 0. 📑 홈페이지 섹션 배치 순서 (원하는 순서대로 줄만 바꾸면 즉시 화면에 반영!)
   // 사용 가능한 섹션 ID:
   // - 'hero'        : 메인 상단 배너 & 실적 통계
-  // - 'trustBadges' : 4대 안심 보증 배지 (KB 5억 보험 / 후불제 / 3일 A/S)
-  // - 'about'       : 브랜드 핵심 가치 및 100% 직영 원칙
-  // - 'process'     : 구역별 비포·애프터(Before & After) 시공 갤러리
   // - 'services'    : 홈클리닝 & 상업공간 50:50 듀얼 마스터 케어
+  // - 'trustBadges' : 4대 안심 보증 배지 (KB 5억 보험 / 후불제 / 3일 A/S)
+  // - 'process'     : 구역별 비포·애프터(Before & After) 시공 갤러리
+  // - 'about'       : 브랜드 핵심 가치 및 100% 직영 원칙
   // - 'reviews'     : 실제 고객 검수 후기 (리뷰 캐러셀)
   // - 'instagram'   : 공식 인스타그램 현장 스토리 피드
-  // - 'faq'         : 자주 묻는 질문 (FAQ 아코디언)
   // - 'contact'     : 1:1 맞춤 견적 신청 폼
+  // - 'faq'         : 자주 묻는 질문 (FAQ 아코디언)
   // -----------------------------------------------------------------------
   sectionOrder: [
     'hero',
-    'trustBadges',
-    'about',
-    'process',
     'services',
+    'trustBadges',
+    'process',
+    'about',
     'reviews',
     'instagram',
-    'faq',
     'contact',
+    'faq',
   ] as SectionId[],
 
   // -----------------------------------------------------------------------
